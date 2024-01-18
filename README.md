@@ -23,6 +23,7 @@ Here is how I'm going to use the required technologies:
   - login
   - retrieving actions from the home page
   - submitting changes to hive data
+- **Authentication** - Have a login page including username and password. This is authenticated by the database and then redirects the user to their personalized home screen with their hive data. 
 - **DB/Login** - Stores user data which includes username, password, hive population, and hive health. Handles login information and controls leaderboard.
-- **WebSocket** - As each user votes, their votes are broadcast to all other users.
+- **WebSocket** - As hive data changes, the leaderboard is constantly being updated. Each action will also change the hive population and health, which will reflect real time to the user and on the leaderboard.
 - **React** - Application ported to use the React web framework. (for transparency this is the same as the example project)
