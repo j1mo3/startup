@@ -13,6 +13,13 @@ This is my leaderboard page which shows the top ten spots, decided by who has co
 
 ### Key Features
 
+- Secure login over HTTPS
+- View realtime date from your beehive and other players
+- Ability to preform different actions that affect your hive population and health
+- Display beehive animation
+- Display total amount of bees, their health
+- Ability to view leaderboard with real time data from other players
+
 ### Technologies
 Here is how I'm going to use the required technologies:
 
