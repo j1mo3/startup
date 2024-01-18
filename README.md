@@ -16,14 +16,13 @@ This is my leaderboard page which shows the top ten spots, decided by who has co
 ### Technologies
 Here is how I'm going to use the required technologies:
 
-- **HTML** - Uses correct HTML structure for application. Two HTML pages. One for login and one for voting. Hyperlinks to choice artifact.
-- **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
-- **JavaScript** - Provides login, choice display, applying votes, display other users votes, backend endpoint calls.
+- **HTML** - Correct use of common HTML best practices. Include three pages-- one for login, the main home screen, and the leaderboard. The leaderboard is included as a link on the home screen. Use html to add in images and designs that I build in Adobe illustrator.
+- **CSS** - Styling that looks good no matter what device you are on. Impliment CSS best practices. CSS adds color and styling that makes the website feel good and look professional. 
+- **JavaScript** - Handles login, and each action that the user can do to take care of the beehive. Also in charge of backend endpoint calls to handle how each action will affect population and health of the hive.
 - **Service** - Backend service with endpoints for:
   - login
-  - retrieving choices
-  - submitting votes
-  - retrieving vote status
-- **DB/Login** - Store users, choices, and votes in database. Register and login users. Credentials securely stored in database. Can't vote unless authenticated.
+  - retrieving actions from the home page
+  - submitting changes to hive data
+- **DB/Login** - Stores user data which includes username, password, hive population, and hive health. Handles login information and controls leaderboard.
 - **WebSocket** - As each user votes, their votes are broadcast to all other users.
-- **React** - Application ported to use the React web framework.
+- **React** - Application ported to use the React web framework. (for transparency this is the same as the example project)
