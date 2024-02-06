@@ -42,9 +42,9 @@ Here is how I'm going to use the required technologies:
 ## HTML Deliverable
 For this deliverable, I created the framework for my website with HTML.
 
--**HTML Pages**- Four HTML pages (index, play, scoreboard, about). These give the ability to login, play the MyHive game, view how many people are online, view the leaderboard, and learn more about how MyHive works.
--**Links**- When you login, it redirects you to the play page. At the top of every page, there is a navigation link system that takes you to any page you want (except login, which you don't need after you login)
--**Text**- Text is represented on every page and lets the user know what's going on. This includes text to describe the buttons and login, as well as helpful tips on the about page, or users scores.
--**Images**- I include images on the index, play, and scoreboard pages. These are logos and a podium graphic that contribute to the user experience. All pages have a favicon logo.
--**DB/Login**- User provides their username and password to login. Based on that, they are redirect to their own personal play page.
--**WebSocket**- On the scoreboard page, it shows real time how many people are on the site. It also shows their real time score which is constantly being updated. Additionally, on the play page, the user's data is constantly being updated to reflect their score.
+-**HTML Pages** - Four HTML pages (index, play, scoreboard, about). These give the ability to login, play the MyHive game, view how many people are online, view the leaderboard, and learn more about how MyHive works.
+-**Links** - When you login, it redirects you to the play page. At the top of every page, there is a navigation link system that takes you to any page you want (except login, which you don't need after you login)
+-**Text** - Text is represented on every page and lets the user know what's going on. This includes text to describe the buttons and login, as well as helpful tips on the about page, or users scores.
+-**Images** - I include images on the index, play, and scoreboard pages. These are logos and a podium graphic that contribute to the user experience. All pages have a favicon logo.
+-**DB/Login** - User provides their username and password to login. Based on that, they are redirect to their own personal play page.
+-**WebSocket** - On the scoreboard page, it shows real time how many people are on the site. It also shows their real time score which is constantly being updated. Additionally, on the play page, the user's data is constantly being updated to reflect their score.
