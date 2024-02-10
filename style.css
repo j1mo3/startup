@@ -1,0 +1,12 @@
+* {
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+h3 { 
+    font-size: 20px;
+}
