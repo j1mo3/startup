@@ -11,9 +11,12 @@
     <header>
         <h1>Welcome to Missionary Connect!</h1>
         <nav>
-            <a href="home.html"><div id="picture" class="picture-box"><img width="400px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
+            <a href="index.html"><div id="picture" class="picture-box"><img width="400px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
             <menu>
-                <li><a href="profile.html">My Profile</a></li>
+                <!-- <li><a href="home.html">Home</a></li> -->
+                <li><a href="login.html">Login</a></li>
+                <li><a href="sign-up.html">Sign Up</a></li>
+                <!-- <li><a href="profile.html">My Profile</a></li> -->
             </menu>
         </nav>
     </header>
@@ -21,12 +24,12 @@
     <main>
         <h1>We're glad you're here!</h1>
 
-        <form method="get" action="play.html">
+        <form method="get" action="home.html">
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" placeholder="James" />
+            <input type="text" id="first-name" placeholder="First Name" />
             <br>
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" placeholder="Wilson" />
+            <input type="text" id="last-name" placeholder="Last Name" />
             <br>
             
             <label for="mission-area">Mission</label>
@@ -455,7 +458,7 @@
             <br>
             
             <label for="phone-number">Phone Number</label>
-            <input type="text" id="phone-number" placeholder="183-821-9281"/>
+            <input type="tel" id="phone-number" placeholder="Phone Number"/>
             <br>
 
             <label for="elder">Elder</label>
@@ -467,16 +470,16 @@
             <br>
 
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="j1m03"/>
+            <input type="text" id="username" placeholder="Username"/>
             <br>
 
             <label for="password">Password</label>
-            <input type="text" id="password" placeholder="jim**********!"/>
+            <input type="text" id="password" placeholder="Password"/>
             <br>
 
-            <button type="submit">Update</button>
+            <button type="submit">Sign Up</button>
         </form>
-        
+
         <p>Already have an account? <a href="sign-up.html">Sign up here</a></p>
     </main>
 
