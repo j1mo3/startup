@@ -9,13 +9,14 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to Missionary Connect!</h1>
+        <div class="header-logo">
+            <a href="profile.html"><div id="picture" class="picture-box"><img width="150px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
+        </div>
         <nav>
-            <a href="index.html"><div id="picture" class="picture-box"><img width="400px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
             <menu>
                 <!-- <li><a href="home.html">Home</a></li> -->
-                <li><a href="login.html">Login</a></li>
-                <li><a href="sign-up.html">Sign Up</a></li>
+                <li><a href="login.html" class="button">Login</a></li>
+                <li><a href="sign-up.html" class="button">Sign Up</a></li>
                 <!-- <li><a href="profile.html">My Profile</a></li> -->
             </menu>
         </nav>
@@ -448,6 +449,7 @@
                 <option value="Zimbabwe Bulawayo Mission">Zimbabwe Bulawayo Mission</option>
                 <option value="Zimbabwe Harare Mission">Zimbabwe Harare Mission</option>
             </select>
+            <br>
         
             <label for="start-date">Start Date</label>
             <input type="date" id="start-date"/>
@@ -463,7 +465,6 @@
 
             <label for="elder">Elder</label>
             <input type="radio" id="elder" name="elder" value="elder">
-            <br>
 
             <label for="sister">Sister</label>
             <input type="radio" id="sister" name="sister" value="sister">
