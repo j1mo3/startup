@@ -48,3 +48,20 @@ For this deliverable, I created the framework for my website with HTML.
 - **Images** - I include images on the index, play, and scoreboard pages. These are logos and a podium graphic that contribute to the user experience. All pages have a favicon logo.
 - **DB/Login** - User provides their username and password to login. Based on that, they are redirect to their own personal play page. The database also helps update the leaderboard page.
 - **WebSocket** - On the scoreboard page, it shows real time how many people are on the site. It also shows their real time score which is constantly being updated. Additionally, on the play page, the user's data is constantly being updated to reflect their score.
+
+## CSS Deliverable
+For this deliverable, I created the design for my website using CSS, specifically style.css
+NOTE TO GRADER: I had this really cool idea I wanted to pursue just a couple days ago. I felt confident in my ability to catch up, so I was given permission to change my project on Monday morning. I know it hasn't been much time since then, but I feel excited and confident about my new project. I'm in the process of updating the rest of this document with the new information for my new idea, feel free to reach out to me with any questions!
+
+Header, footer, and main content body
+Navigation elements - I dropped the underlines and changed the color for anchor elements.
+Responsive to window resizing - My app looks great on all window sizes and devices
+Application elements - Used good contrast and whitespace
+Application text content - Consistent fonts
+Application images - Still don't have images and so no styling here. 😔
+- **Header, footer, and main content body** - It all looks great, and each element has it's own style. They are designed in a way that makes it easy for a user to understand and use.
+- **Navigation elements** - Instead of using the basic list and link elements, I dropped the list bullets and underlines, and added a stunning orange border around the pages that contrasts nicely with the rest o the page. They're all line up on the left side of the page which adds a nice design element. I also added the website logo and am having that function as the home link.
+- **Responsive to window resizing** - Website looks great and professional on all screen sizes.
+- **Application elements** - All the elements have their unique style that blends in well with the flow of the design. This includes designs for inputs (text, radio buttons), text, buttons, links, and even added in some styling for cards with border shadow.
+- **Application text content** - Consistent fonts, styled different types of text (h1, a, p, etc...)
+- **Application images** - adjusted image sizes to fit with page, elements they are a part of. I used lots of different images on different pages, and even incorporated it into my header.
