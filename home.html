@@ -5,84 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="icon" href="static/favicon.png" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
+    <script src="script.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="header-logo">
-            <a href="home.html"><div id="picture" class="picture-box"><img width="150px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
-        </div>
+        <a href="home.html"><div id="home-icon" class="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
         <nav>
-            <menu>
-                <li><a href="profile.html" class="button">My Profile</a></li>
-            </menu>
+            <li><a href="profile.html" class="normal-link">Elder Wilson</a></li>
         </nav>
+        <a href="profile.html"><div id="picture" class="profile-box"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div></a>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
 
-        <div id="picture" class="picture-box"><img width="150px" src="static/mission-tag.png" alt="mission-tag" /></div>
-        <div id="picture" class="picture-box"><img width="150px" src="static/profile-pic.png" alt="profile picture" /></div>
     </header>
 
     <main>
-        <div id="seperator"></div>
-        <div class="about">
-            <div class="about-header">
-                <h1 class="mission-area-title">Tennessee Knoxville Mission</h1>
-                <div id="picture" class="picture-box"><img width="400px" src="static/tennessee.svg" alt="mission-outline" /></div>
-            </div>
+        <div class="seperator"></div>
 
-            <div class="info-header">
-                <p class="mission-area-info">
-                    L. Mark Barlow and Kimberly A. Douros Barlow,
-                    three children, Westland 9th Ward, West Jordan
-                    Utah Westland Stake: Tennessee Knoxville Mission.
-                    President Barlow is a former stake president, stake
-                    presidency counselor, bishop, bishopric counselor,
-                    elders quorum president, ward Young Men president,
-                    and missionary in the Hawaii Honolulu Mission.
-                    He was born in Murray, Utah, to Lincoln Farrell
-                    Barlow and Marilyn Sanders Barlow. Sister Barlow
-                    is a former patriarch scribe, ward Young Women
-                    president, ward Relief Society presidency counselor,
-                    ward Primary secretary, ward Young Women adviser,
-                    Primary chorister, Sunday School teacher, and ward
-                    temple and family history consultant. She was born
-                    in Salt Lake City, Utah, to John David Douros and
-                    Gayle Anne Hufham Douros.
-                </p>
+        <div class="info-block">
+            <div class="slogan">
+                <h1 class="main-line">Tennessee Knoxville Mission</h1>
+                <h2 class="second-line">
+                    The Tennessee Knoxville mission covers areas in Tennessee, Kentucky, North Carolina, South Carolina, and Georgia.
+                </h2>
+            </div>
+            <a href="about-my-mission.html"><div id="area-img" class="picture-box"><img src="static/mission-area.png" alt="mission-outline" /></div></a>  
+        </div>
+
+        <div class="tabs">
+            <div class="tab-buttons" onclick="onClick(event, 'introduce-yourself')">
+                <h5 class="tab-text" id="introduce-yourself-button">Introduce Yourself</h5>
+            </div>
+            <div class="tab-buttons" onclick="onClick(event, 'discussion')">
+                <h5 class="tab-text" id="discussion-button">Discussion</h5>
+            </div>
+            <div class="tab-buttons" onclick="onClick(event, 'ask-an-rm')">
+                <h5 class="tab-text" id="ask-an-rm-button">Ask an RM</h5>
+            </div>
+            <div class="tab-buttons" onclick="onClick(event, 'inspiration-advice')">
+                <h5 class="tab-text" id="inspiration-advice-button">Inspiration/Advice</h5>
             </div>
         </div>
 
-        <div class="new-missionaries">
-            <div class="new-missionaries-header">
-                <h3>Connect with missionaries that just recently got their call to Knoxville!</h3>
-            </div>
-
-            <div class="missionary-card-box">
-                <div class="missionary-card">
-                    <div id="picture" class="picture-box"><img width="400px" src="static/mission-tag.png" alt="mission-outline" /></div>
-                    <h1>Elder James Wilson</h1>
-                    <h3>Knoxville Tennessee Mission</h3>
-                    <h3>June 3rd, 2024</h3>
-                    <h3>801-193-7929</h3>
+        <div class="tab-content" id="introduce-yourself">
+            <div class="post">
+                <div class="post-main">
+                    <div class="profile-pic"></div>
+                    <h3>Elder James Wilson</h3>
+                    <h5>Service starts June 3rd</h5>
+                    <p>Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
                 </div>
+                <div class="comments">
 
-                <div class="missionary-card">
-                    <div id="picture" class="picture-box"><img width="400px" src="static/mission-tag.png" alt="mission-outline" /></div>
-                    <h1>Elder James Wilson</h1>
-                    <h3>Knoxville Tennessee Mission</h3>
-                    <h3>June 3rd, 2024</h3>
-                    <h3>801-193-7929</h3>
-                </div>
-
-                <div class="missionary-card">
-                    <div id="picture" class="picture-box"><img width="400px" src="static/mission-tag.png" alt="mission-outline" /></div>
-                    <h1>Elder James Wilson</h1>
-                    <h3>Knoxville Tennessee Mission</h3>
-                    <h3>June 3rd, 2024</h3>
-                    <h3>801-193-7929</h3>
                 </div>
             </div>
         </div>
+        <div class="tab-content" id="discussion">
+            <h1>2</h1>
+        </div>
+        <div class="tab-content" id="ask-an-rm">
+            <h1>3</h1>
+        </div>
+        <div class="tab-content" id="inspiration-advice">
+            <h1>4</h1>
+        </div>
+
     </main>
 
     <footer>
@@ -90,4 +80,10 @@
     </footer>
     
 </body>
+
+<script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("introduce-yourself-button").click();
+</script>
+
 </html>

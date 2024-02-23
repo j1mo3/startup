@@ -5,35 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="icon" href="static/favicon.png" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="header-logo">
-            <a href="index.html"><div id="picture" class="picture-box"><img width="150px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
-        </div>
+        <a href="index.html"><div id="home-icon" class="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
         <nav>
-            <menu>
-                <!-- <li><a href="home.html">Home</a></li> -->
-                <li><a href="login.html" class="button">Login</a></li>
-                <li><a href="sign-up.html" class="button">Sign Up</a></li>
-                <!-- <li><a href="profile.html">My Profile</a></li> -->
-            </menu>
+            <li><a href="sign-up.html" class="button">Sign Up</a></li>
+            <li><a href="login.html" class="normal-link">Sign In</a></li>
         </nav>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+
     </header>
 
     <main>
-        <div id="seperator"></div>
-        <form method="get" action="home.html">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Username" />
-            <br>
-            <label for="password">Password</label>
-            <input type="text" id="password" placeholder="Password" />
-            <br>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="sign-up.html">Sign up here</a></p>
+        <div class="seperator"></div>
+        <div class="_flexbox">
+            <div class="container">
+                <form method="get" action="home.html">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Username" />
+
+                    <label for="password">Password</label>
+                    <input type="text" id="password" placeholder="Password" />
+
+                    <button type="submit" class="accent-button">Login</button>
+                </form>
+            
+                <a href="sign-up.html" class="accent-link">Create account instead</a>
+            </div>
+            <div id="world-img" class="login-img"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
+        </div>
     </main>
 
     <footer>

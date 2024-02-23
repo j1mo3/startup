@@ -5,40 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Missionary Connect</title>
     <link rel="icon" href="static/favicon.png" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="header-logo">
-            <a href="index.html"><div id="picture" class="picture-box"><img width="150px" src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
-        </div>
+        <a href="index.html"><div id="home-icon" class="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
         <nav>
-            <menu>
-                <!-- <li><a href="home.html">Home</a></li> -->
-                <li><a href="login.html" class="button">Login</a></li>
-                <li><a href="sign-up.html" class="button">Sign Up</a></li>
-                <!-- <li><a href="profile.html">My Profile</a></li> -->
-            </menu>
+            <li><a href="sign-up.html" class="button">Sign Up</a></li>
+            <li><a href="login.html" class="normal-link">Sign In</a></li>
         </nav>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+        <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
 
     </header>
 
     <main>
-        <div id="seperator"></div>
-        <div id="info-block">
-            <h1>Served a mission or already have a call? Connect with people who will or have served in your area!</h1>
+        <div class="seperator"></div>
+        <div class="info-block">
+            <div class="slogan">
+                <h1 id="main-line">Connect with missionaries called to your area!</h1>
+                <h2 id="second-line">Missionary Connect brings together newly called and seasoned missionaries, creating a community where you can share insights, advice, and the joy of serving.</h2>
+            </div>
+            <div id="world-img" class="info-box"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
         </div>
 
-        <div id="missionary-info">
-            <div class="future-missionaries">
-                <h3>For Prospective Missionaries</h3>
-                <p>You've grown a foot or two, and now you're going on a mission! Missionary Connect invites you to join a community of individuals who, like you, have just received their call to the same area. Connect with fellow prospective missionaries and engage with those who have already served in the area you're about to serve in.</p>
+        <div class="background">
+            <div class="prospective-missionaries">
+                <div class="mission-info">
+                    <h1>For Prospective Missionaries</h1>
+                    <p>You've grown a foot or two, and now you're going on a mission! Connect with fellow prospective missionaries and engage with those who have already served in the same area.</p>
+                </div>
+                <div class="mission-info">
+                    <h1>For Returned Missionaries</h1>
+                    <p>For those who have returned from the field, your mission was nothing short of extraordinary, filled with impactful experiences and inspiring stories. Get started today to share!</p>
+                </div>
             </div>
+        </div>
 
-            <div class="returned-missionaries">
-                <h3>For Returned Missionaries</h3>
-                <p>For those who have returned from the field, your mission was nothing short of extraordinary, filled with impactful experiences and inspiring stories. Now, as you seek to share those moments with others preparing for their own missions, Missionary Connect provides the platform to connect with both new and seasoned missionaries from your specific area. Join us in fostering a community built on shared missions stories.</p>
-            </div>
+        <div class="line1">
+            <h1 id="main-line">Join Today</h1>
+            <li><a href="sign-up.html" class="button">Sign Up</a></li>
         </div>
 
     </main>
