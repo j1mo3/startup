@@ -307,7 +307,7 @@ select {
 }
 
 .post {
-    padding: 25px;
+    padding: 20px;
     margin-top: 20px;
     margin-bottom: 15px;
     border-radius: 20px;
@@ -343,7 +343,7 @@ select {
 .mini-profile {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding-right: 10px;
 }
 
 .comment-header .name-info .name{
@@ -356,7 +356,7 @@ select {
     padding:3px;
 }
 
-.post-main .comment-text {
+.comment-text {
     font-family:'Segoe UI';
     text-transform:none;
     grid-area: main;
@@ -365,7 +365,8 @@ select {
 }
 
 .post-main .comment-header {
-    grid-area: comments;
+    padding: 10px;
+    margin: 0;
 }
 
 .comment {
@@ -380,11 +381,15 @@ select {
     background-color: #ece9e9;
 }
 
-.mini-profile {
+
+.mini-profile1 {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
     background-color: #ece9e9;
 }
 
-.comment .mini-profile img {
+.mini-profile1 img {
     background-color: #ece9e9;
 }
 
