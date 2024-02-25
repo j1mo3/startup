@@ -1,5 +1,5 @@
 # **James' Notes**
-### CS260
+### CS260 Notes
 Here is a link to my [ReadMe File](https://github.com/j1mo3/startup/blob/main/README.md)
 
 I learned a lot about GitHub from the GitHub assignment. I really like it because it allows you to save different
@@ -12,3 +12,5 @@ Some of the Git commands I learned include:
 Those are just some of the really helpful and interesting commands you can use in VSCode and Github.
 
 I also learned how to work with md (markdown) files! Formatting is really simple. You can use hashtags to change the size, and **double stars** around text you want to make bold!
+
+### Midterm 1
