@@ -3024,6 +3024,26 @@ const objRegex = new RegExp('ab*', 'i');
 const literalRegex = /ab*/i;
 ```
 
+const: This keyword is used to declare a constant variable in JavaScript.
+
+petRegex: This is the name of the constant variable that holds the regular expression.
+
+/(dog)|(cat)|(bird)/: This is the regular expression itself. Breaking it down:
+
+dog, cat, and bird are literal strings representing the possible pet names.
+
+| is the alternation operator, which functions as an OR operator. It matches either the expression before or after it.
+
+(dog)|(cat)|(bird): This part captures three groups, one for each pet name.
+
+/gim: These are flags that modify the behavior of the regular expression:
+
+g: Global flag - It makes the regular expression search for all occurrences, not just the first one.
+
+i: Case-insensitive flag - It makes the regular expression case-insensitive, so it matches "dog", "Dog", "DOG", etc.
+
+m: Multiline flag - It allows the caret (^) and dollar sign ($) to match the start/end of each line within a multiline string.
+
 The `string` class has several functions that accept regular expressions. This includes `match`, `replace`, `search`, and `split`. For a quick test to see if there is a match you can use the regular expression object's `test` function.
 
 ```js
