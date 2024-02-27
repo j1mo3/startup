@@ -38,7 +38,7 @@ I also learned how to work with md (markdown) files! Formatting is really simple
    console.log(e)
    ['a1','a2','a3']
 10. document.querySelector('p').addEventListener('mouseover', consol.log); adds a mouseover event listener to a p element
-11. <ul> is an unordered list
+11. '<ul></ul>' is an unordered list
 12. function f(x) = {} is not a valid javascript function. const f=(x) => {}, function f(x) {}, and const f=function(x){} are.
 13. <script>1+1</script>, <script src='main.js' />, and <div onclick='1+1' /> are valid ways of adding javascript to HTML. <javascript>1+1</javascript> is not.
 14. {n:1} is a valid javascript object. {n=1}, {"n"=1}, and {"n"="1"} are not.
