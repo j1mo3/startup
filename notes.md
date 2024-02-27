@@ -15,6 +15,78 @@ I also learned how to work with md (markdown) files! Formatting is really simple
 
 ### Midterm 1
 
+# Kahoot Info
+
+1. You can use CSS to load fonts from google (True) (@import url('https://fonts.google.com/css?family=Quicksand');
+2. How will the "hello world" text be oriented? display: flex (auto is row, displays it all in a row), display: column puts it in a column (column-reverse goes top to bottom)
+3. Padding puts space around the content of selected elements
+4. const f = y => ++y;
+   console.log(f(3))
+   logs 4, order of ++ doesn't matter
+5. Div stands for division element
+6. Order of the CSS box model is margin, border, padding, content
+7. let a = ['cow', 'rat', 'fish'];
+   let b = a.filter(v => v.match(/A|f/i));
+   console.log(b)
+   ['rat', 'fish']
+8. let a = ['cow', 'rat', 'fish'];
+   let b = a.reduce((a,v) => [a,v].join(':'));
+   console.log(b)
+   cow:rat:fish
+9. let a = [1,2,3];
+   let e = a.map(number => { return ('a' + number) });
+   console.log(e)
+   ['a1','a2','a3']
+10. document.querySelector('p').addEventListener('mouseover', consol.log); adds a mouseover event listener to a p element
+11. <ul> is an unordered list
+12. function f(x) = {} is not a valid javascript function. const f=(x) => {}, function f(x) {}, and const f=function(x){} are.
+13. <script>1+1</script>, <script src='main.js' />, and <div onclick='1+1' /> are valid ways of adding javascript to HTML. <javascript>1+1</javascript> is not.
+14. {n:1} is a valid javascript object. {n=1}, {"n"=1}, and {"n"="1"} are not.
+15. The DOM textContent property sets the child text for the an element
+16. <a href='https://c.com'>x</a> is a valid hyperlink. <a src='https://c.com'>x</a>, <link src='https://c.com'>x</link>, <link href='https://c.com'>x</link> is not.
+17. <div>other</div>
+    <div class="header">BYU</div>
+    To turn only the BYU text blue, you would use div.header { color: blue; }
+18. {"x":3} is valid JSON. {x:3}, {"x":undefined], and {'x':3} are not.
+19. chmod +x deploy.sh is a console command that makes a script executable. ls -la deploy.sh, ssh deploy.sh, and sudo deploy.sh are not.
+20. c260.cs.byu.edu is a DNS subdomain
+21. To point to another DNS record, you should use a CNAME.
+A: I have some host names and I'm mapping it to an IP address
+TXT: Storing some text file, not really used a lot
+SOA: How you link up your DNS records with someone else
+CNAME: cow.com to map to dog.com (different from redirect)
+22. const p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('taco');
+        resolve(true);
+      }, 10000);
+    });
+    console.log('burger');
+
+    p
+    .then((result) => console.log('shake'))
+    .catch((e) => console.log('salad'))
+    .finally(() => console.log('noodles'))
+
+    console.log('fries');
+
+    This would print out burger fries taco shake noodles
+
+23. const a = async function() {
+     return new Promise((resolve, reject) => {
+      setTimeout(() => {console.log('D'); resolve(true)}, 10000);
+     })
+    }
+    try {
+      console.log('A');
+      await a();
+      console.log('B')
+    } catch(e) {
+        console.log('C');
+    }
+
+    Would print out A D B
+
 # Git
 
 ![Git Icon](essentialsGitIcon.png)
