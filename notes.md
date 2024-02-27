@@ -3787,6 +3787,68 @@ Notice that you are able to see the round trip journey of the local storage valu
 
 ![Local storage dev tools](localStorageDevTools.png)
 
+```js
+function pickupPizza() {
+  const order = createOrder();
+
+  // Promise
+  placeOrder(order)
+    .then((order) => makePizza(order))
+    .then((order) => serveOrder(order))
+    .catch((order) => {
+      orderFailure(order);
+    });
+}
+
+function createOrder() {
+  // Make the order and associate it with a new HTML element
+  const id = Math.floor(Math.random() * 10000);
+  const orderElement = document.createElement("li");
+  const order = { element: orderElement, id: id };
+
+  // Insert the order into the HTML list
+  orderElement.innerHTML = `<span>[${order.id}] &#128523; <i>Waiting</i> ...</span>`;
+  const orders = document.getElementById("orders");
+  orders.appendChild(orderElement);
+
+  return order;
+}
+
+function placeOrder(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 1000, 3000, resolve, reject, `cashier too busy`);
+  });
+}
+
+function makePizza(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 2000, 5000, resolve, reject, `cook burnt pizza`);
+  });
+}
+
+function doWork(order, min, max, resolve, reject, errMsg) {
+  let workTime = Math.random() * (max - min) + min;
+  setTimeout(() => {
+    workTime = Math.round(workTime);
+    if (workTime < max * 0.85) {
+      resolve(order);
+    } else {
+      order.error = errMsg;
+      reject(order);
+    }
+  }, workTime);
+}
+
+function serveOrder(order) {
+  order.element.innerHTML = `<span>[${order.id}] &#127829; <b>Served</b>!</span>`;
+}
+
+function orderFailure(order) {
+  order.element.innerHTML = `<span> [${order.id}] &#128544; <b class='failure'>Failure</b>! ${order.error}</span>`;
+}
+```
+
+
 # JavaScript Async/await
 
 📖 **Deeper dive reading**: [MDN async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
@@ -3910,6 +3972,69 @@ console.log('done');
 // OUTPUT: {email: 'bud@mail.com', authenticated: true}
 // OUTPUT: done
 ```
+
+```js
+async function pickupPizza() {
+  const order = createOrder();
+
+  // async/await
+  try {
+    await placeOrder(order);
+    await makePizza(order);
+    serveOrder(order);
+  } catch (order) {
+    orderFailure(order);
+  }
+}
+
+function createOrder() {
+  // Make the order and associate it with a new HTML element
+  const id = Math.floor(Math.random() * 10000);
+  const orderElement = document.createElement("li");
+  const order = { element: orderElement, id: id };
+
+  // Insert the order into the HTML list
+  orderElement.innerHTML = `<span>[${order.id}] 😋 <i>Waiting</i> ...</span>`;
+  const orders = document.getElementById("orders");
+  orders.appendChild(orderElement);
+
+  return order;
+}
+
+async function placeOrder(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 1000, 3000, resolve, reject, `cashier too busy`);
+  });
+}
+
+async function makePizza(order) {
+  return new Promise((resolve, reject) => {
+    doWork(order, 2000, 5000, resolve, reject, `cook burnt pizza`);
+  });
+}
+
+function doWork(order, min, max, resolve, reject, errMsg) {
+  let workTime = Math.random() * (max - min) + min;
+  setTimeout(() => {
+    workTime = Math.round(workTime);
+    if (workTime < max * 0.85) {
+      resolve(order);
+    } else {
+      order.error = errMsg;
+      reject(order);
+    }
+  }, workTime);
+}
+
+function serveOrder(order) {
+  order.element.innerHTML = `<span>[${order.id}] 🍕 <b>Served</b>!</span>`;
+}
+
+function orderFailure(order) {
+  order.element.innerHTML = `<span> [${order.id}] 😠 <b class='failure'>Failure</b>! ${order.error}</span>`;
+}
+```
+
 # Debugging JavaScript
 
 📖 **Deeper dive reading**: [MDN Console](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools)
