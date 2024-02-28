@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index-style.css">
     <script src="script.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <body>
     <header>
@@ -36,28 +37,43 @@
         </div>
 
         <div class="tabs">
-            <div class="tab-buttons" onclick="onClick(event, 'introduce-yourself')">
+            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself')">
                 <h5 class="tab-text" id="introduce-yourself-button">Introduce Yourself</h5>
             </div>
-            <div class="tab-buttons" onclick="onClick(event, 'discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'discussion')">
                 <h5 class="tab-text" id="discussion-button">Discussion</h5>
             </div>
-            <div class="tab-buttons" onclick="onClick(event, 'ask-an-rm')">
+            <div class="tab-buttons" onclick="tabs(event, 'ask-an-rm')">
                 <h5 class="tab-text" id="ask-an-rm-button">Ask an RM</h5>
             </div>
-            <div class="tab-buttons" onclick="onClick(event, 'inspiration-advice')">
+            <div class="tab-buttons" onclick="tabs(event, 'inspiration-advice')">
                 <h5 class="tab-text" id="inspiration-advice-button">Inspiration/Advice</h5>
             </div>
         </div>
 
         <div class="tab-content" id="introduce-yourself">
+
+            <div class="post">
+                <div class="post-main">
+                        <h6 id="create-post-date"></h6>
+                    <div class="comment-header">
+                        <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                        <div class="name-info">
+                            <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
+                            <h5 class="service-start">Service starts June 3rd</h5>
+                        </div>
+                    </div>
+                    <input type="text" id="write-post" placeholder="Say something...">                    
+                </div>
+            </div>
+
             <div class="post">
                 <div class="post-main">
                         <h6 class="date">02/23/24</h6>
                     <div class="comment-header">
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
-                            <h3 class="name">Elder James Wilson</h3>
+                            <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
                             <h5 class="service-start">Service starts June 3rd</h5>
                         </div>
                     </div>
@@ -71,7 +87,7 @@
                         <div class="comment-header">
                             <div id="picture" class="mini-profile1"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                             <div class="name-info">
-                                <h3 class="name">Elder James Wilson</h3>
+                                <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
                                 <h5 class="service-start">Service starts June 3rd</h5>
                             </div>
                         </div>
@@ -102,6 +118,6 @@
 <script>
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
+    document.getElementById("create-post-date").textContent = new Date().toDateString()
 </script>
-
 </html>

@@ -7,6 +7,7 @@
     <link rel="icon" href="static/favicon.png" />
     <link rel="stylesheet" href="index-style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <script src="script.js" type="text/javascript"></script>
 </head>
 <body>
     <header>
@@ -25,16 +26,16 @@
         <div class="seperator"></div>
         <div class="_flexbox">
             <div class="container">
-                <form method="get" action="home.html">
+                <div class="form">
                     <label for="username">Username</label>
                     <input type="text" id="username" placeholder="Username" />
 
                     <label for="password">Password</label>
                     <input type="text" id="password" placeholder="Password" />
 
-                    <button type="submit" class="accent-button">Login</button>
-                </form>
-            
+                    <button class="accent-button" onclick="login('.error-statement')">Login</button>
+                </div>
+                <div class="error-statement"></div>
                 <a href="sign-up.html" class="accent-link">Create account instead</a>
             </div>
             <div id="world-img" class="login-img"><img src="static/missionary-globe.png" alt="globe-icon"/></div>

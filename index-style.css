@@ -216,7 +216,7 @@ h1 {
     padding: 5vw 5vh;
 }
 
-form {
+.form {
 	background-color: #ece9e9;
 	display: flex;
 	align-items: center;
@@ -333,6 +333,13 @@ select {
     align-items: center;
 }
 
+#create-post-date {
+    display: flex;
+    justify-content: right;
+    padding: 0;
+    margin: 0;
+}
+
 .date {
     display: flex;
     justify-content: right;
@@ -349,6 +356,7 @@ select {
 .comment-header .name-info .name{
     margin:0;
     padding:3px;
+    cursor: pointer;
 }
 
 .comment-header .name-info .service-start{
@@ -395,6 +403,7 @@ select {
 
 .comment .name-info {
     background-color: #ece9e9;
+    cursor: pointer;
 }
 
 .comment .name-info h3 {
@@ -411,4 +420,10 @@ select {
 
 .comment .comment-text {
     background-color: #ece9e9;
+}
+
+
+.error-statement p {
+    color: #fd4040;
+    text-decoration: none;
 }
