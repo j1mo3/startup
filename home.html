@@ -37,7 +37,7 @@
         </div>
 
         <div class="tabs">
-            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself')">
+            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself');getChatLog('#discussion')">
                 <h5 class="tab-text" id="introduce-yourself-button">Introduce Yourself</h5>
             </div>
             <div class="tab-buttons" onclick="tabs(event, 'discussion')">
@@ -69,7 +69,7 @@
             </div>
 
             <div id="discussion">
-                <div class="post">
+                <!-- <div class="post">
                     <div class="post-main">
                             <h6 class="date">02/23/24</h6>
                         <div class="comment-header">
@@ -80,7 +80,12 @@
                             </div>
                         </div>
                         <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
-                        <h6 class="comment-header">Comments</h6>
+                        <div class="comments-header">
+                            <h6 class="comment-label">Comments</h6>
+                            <div id="picture" class="add-comment"><img class='add-comment-img' width="15px" src="static/add-comment.svg" alt="profile picture" /></img>
+                        </div>
+                        
+
                     </div>
 
                     <div class="comment">
@@ -96,9 +101,10 @@
                             <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
+        
         <div class="tab-content" id="discussion">
             <h1>2</h1>
         </div>

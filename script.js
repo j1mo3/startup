@@ -110,13 +110,13 @@ function missionary_type(start, end) {
     end_date = new Date(end)
 
     if (end_date < today) {
-        return "Returned Missionary"
+        return "Service ended " + end_date.toDateString();
     }
     else if (start_date < today) {
-        return "Currently Serving"
+        return "Serving since " + start_date.toDateString();
     }
     else if (today < start_date) {
-        return "Future Missionary"
+        return "Service starts " + start_date.toDateString();
     }
 }
 
@@ -128,6 +128,13 @@ function post(page) {
     const post_input = document.querySelector("#write-post");
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
+    // placeholder for when I can use datebase information
+    addChat(page, 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', text);
+
+    post_input.value = ''
+}
+
+function addChat(page, prefix, img_src, name, service_start, service_end, date, chat) {
     post_div = document.createElement('div');
     post_div.classList.add('post');
     parentElement = document.querySelector(page);
@@ -139,7 +146,7 @@ function post(page) {
     
     date_h6 = document.createElement('h6');
     date_h6.classList.add('date');
-    date_h6.textContent = new Date().toDateString();
+    date_h6.textContent = new Date(date).toDateString();
     post_main_div.appendChild(date_h6);
 
     comment_header_div = document.createElement('div');
@@ -152,7 +159,7 @@ function post(page) {
 
     img = document.createElement("img");
     img.classList.add('img_profile_pic')
-    img.src = "static/profile-pic.png";
+    img.src = img_src;
     img.style.width = '50px';
     
     mini_profile_div.appendChild(img);
@@ -164,23 +171,62 @@ function post(page) {
     name_h3 = document.createElement('h3');
     name_h3.classList.add('name');
     name_h3.onclick = sendEmail();
-    name_h3.textContent = 'James Wilson'
+    name_h3.textContent = prefix + ' ' + name
     name_info_div.appendChild(name_h3);
 
     service_start_h5 = document.createElement('h5');
     service_start_h5.classList.add('service-start');
-    service_start_h5.textContent = 'Service starts June 3rd';
+    service_start_h5.textContent = missionary_type(service_start, service_end);
     name_info_div.appendChild(service_start_h5);
 
     comment_text_p = document.createElement('p');
     comment_text_p.classList.add('comment-text');
-    comment_text_p.innerHTML = text;
+    comment_text_p.innerHTML = chat;
     post_main_div.appendChild(comment_text_p);
 
-    comment_header_h6 = document.createElement('h6');
-    comment_header_h6.classList.add('comment-header');
-    comment_header_h6.textContent = 'Comments';
-    post_main_div.appendChild(comment_header_h6);
+    comments_header_div = document.createElement('div');
+    comments_header_div.classList.add('comments-header');
+    post_main_div.appendChild(comments_header_div);
 
-    post_input.value = ''
+    comment_header_h6 = document.createElement('h6');
+    comment_header_h6.classList.add('comment-label');
+    comment_header_h6.textContent = 'Comments';
+    comments_header_div.appendChild(comment_header_h6);
+
+    add_comment_div = document.createElement('div');
+    add_comment_div.classList.add('add-comment');
+    comments_header_div.appendChild(add_comment_div);
+
+    img = document.createElement("img");
+    img.classList.add('add-comment-img');
+    img.src = 'static/add-comment.svg';
+    img.style.width = '15px';
+    
+    add_comment_div.appendChild(img);
 }
+
+function addComment(post) {
+
+}
+
+function getChatLog(page) {
+    //retrive chat information from database
+    //placeholder for actual database information
+    database = [1,2,3,4,5]
+    for (let i = 0, len = database.length, text = ""; i < len; i++) {
+        addChat(page, 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Sample Text');
+    }
+    
+}
+
+function updateChat(){
+    //retrive chat information here
+    //websocket for when it can grab chats automatically
+    //for now, refer to the set interval
+}
+
+
+// setInterval(() => {
+//     addChat('#discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Johnny Johnny Yes Papa');
+// }, 5000);
+
