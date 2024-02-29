@@ -128,14 +128,36 @@ function sendEmail() {
     // window.open('mailto:test@example.com?subject=subject&body=body');
 }
 
-function post(page) {
-    const post_input = document.querySelector("#write-post");
+function post(page, input) {
+    const post_input = document.querySelector(input);
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
+    newPost = {
+        prefix: "Elder",
+        firstName: "James",
+        lastName: "Wilson",
+        startDate: "06-03-24",
+        endDate: "06-03-26",
+        profileImg: "static/profile-pic.png",
+        post: text
+    };
     // placeholder for when I can use datebase information
-    addChat(page, 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', text);
+    addChat(page, newPost["prefix"], newPost["profileImg"], newPost["firstName"] + ' ' + newPost["lastName"], newPost["startDate"], newPost["endDate"], new Date().toDateString(), newPost["post"]);
 
     post_input.value = ''
+    
+    if (page === '#introduce-yourself-discussion') {
+        database.push(newPost)
+    }
+    if (page === '#discussion-tab-discussion') {
+        database2.push(newPost)
+    }
+    if (page === '#ask-an-rm-discussion') {
+        database3.push(newPost)
+    }
+    if (page === '#inspiration-advice-discussion') {
+        database4.push(newPost)
+    }
 }
 
 function addChat(page, prefix, img_src, name, service_start, service_end, date, chat) {
@@ -185,6 +207,7 @@ function addChat(page, prefix, img_src, name, service_start, service_end, date, 
 
     comment_text_p = document.createElement('p');
     comment_text_p.classList.add('comment-text');
+    console.log(chat);
     comment_text_p.innerHTML = chat;
     post_main_div.appendChild(comment_text_p);
 
@@ -207,6 +230,20 @@ function addChat(page, prefix, img_src, name, service_start, service_end, date, 
     img.style.width = '15px';
     
     add_comment_div.appendChild(img);
+
+    //add to placeholder database
+    // newPost = {
+    //     prefix: "Elder",
+    //     firstName: "James",
+    //     lastName: "Wilson",
+    //     startDate: "06-03-24",
+    //     endDate: "06-03-26",
+    //     profileImg: "static/profile-pic.png",
+    //     post: chat
+    //   };
+    
+    // database.push(newPost);
+    // console.log(database);
 }
 
 function addComment(post) {
@@ -226,9 +263,36 @@ function getCityInformation(city) {
 function getChatLog(page) {
     //retrive chat information from database
     //placeholder for actual database information
-    for (let i = 0, len = database.length; i < len; i++) {
-        addChat(page, 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Sample Text');
+    console.log('Clicked!');
+    
+    parentElement = document.querySelector(page);
+    parentElement.innerHTML = ""
+
+    if (page === '#introduce-yourself-discussion') {
+        for (let i = 0, len = database.length; i < len; i++) {
+            database[i]["Prefix"]
+            addChat(page, database[i]["prefix"], database[i]["profileImg"], database[i]["firstName"] + ' ' + database[i]["lastName"], database[i]["startDate"], database[i]["endDate"], new Date().toDateString(), database[i]["post"]);
+        }
     }
+    if (page === '#discussion-tab-discussion') {
+        for (let i = 0, len = database2.length; i < len; i++) {
+            database2[i]["Prefix"]
+            addChat(page, database2[i]["prefix"], database2[i]["profileImg"], database2[i]["firstName"] + ' ' + database2[i]["lastName"], database2[i]["startDate"], database2[i]["endDate"], new Date().toDateString(), database2[i]["post"]);
+        }
+    }
+    if (page === '#ask-an-rm-discussion') {
+        for (let i = 0, len = database3.length; i < len; i++) {
+            database3[i]["Prefix"]
+            addChat(page, database3[i]["prefix"], database3[i]["profileImg"], database3[i]["firstName"] + ' ' + database3[i]["lastName"], database3[i]["startDate"], database3[i]["endDate"], new Date().toDateString(), database3[i]["post"]);
+        }
+    }
+    if (page === '#inspiration-advice-discussion') {
+        for (let i = 0, len = database4.length; i < len; i++) {
+            database[i]["Prefix"]
+            addChat(page, database4[i]["prefix"], database4[i]["profileImg"], database4[i]["firstName"] + ' ' + database4[i]["lastName"], database4[i]["startDate"], database4[i]["endDate"], new Date().toDateString(), database4[i]["post"]);
+        }
+    }
+    
     
 }
 
@@ -239,11 +303,11 @@ function updateChat(){
 }
 
 
-// setInterval(() => {
-//     addChat('#discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Johnny Johnny Yes Papa');
-// }, 5000);
+setInterval(() => {
+    addChat('#introduce-yourself-discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'WebSocketTest');
+}, 5000);
 
-const post = {
+const post1 = {
     prefix: "Elder",
     firstName: "James",
     lastName: "Wilson",
@@ -253,4 +317,7 @@ const post = {
     post: "This is a sample post"
   };
 
-database = [post, post, post]
+database = [post1, post1, post1]
+database2 = [post1, post1, post1]
+database3 = [post1, post1, post1]
+database4 = [post1, post1, post1]

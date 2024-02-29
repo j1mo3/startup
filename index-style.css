@@ -377,7 +377,7 @@ div#picture.add-comment {
     margin: 0;
 }
 
-textarea#write-post {
+textarea#write-post1, textarea#write-post2, textarea#write-post3, textarea#write-post4 {
     height: 100%;
     background-color: #ece9e9;
     font-family: 'Segoe UI';
