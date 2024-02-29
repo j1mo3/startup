@@ -479,7 +479,7 @@ textarea#write-post {
     text-decoration: none;
 }
 
-#discussion {
+#introduce-yourself-discussion, #discussion-tab-discussion, #ask-an-rm-discussion, #inspiration-advice-discussion {
     display: flex;
     flex-direction: column-reverse;
     background-color: #ece9e9;

@@ -14,7 +14,7 @@
     <header>
         <a href="home.html"><div id="home-icon" class="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></a>
         <nav>
-            <li><a href="profile.html" class="normal-link">Elder Wilson</a></li>
+            <li><a href="profile.html" class="normal-link display-name"></a></li>
         </nav>
         <a href="profile.html"><div id="picture" class="profile-box"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div></a>
         <div id="social-media-icon" class="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
@@ -35,16 +35,16 @@
         </div>
 
         <div class="tabs">
-            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself');getChatLog('#discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself');getChatLog('#introduce-yourself-discussion')">
                 <h5 class="tab-text" id="introduce-yourself-button">Introduce Yourself</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'discussion-tab');getChatLog('#discussion-tab-discussion')">
                 <h5 class="tab-text" id="discussion-button">Discussion</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'ask-an-rm')">
+            <div class="tab-buttons" onclick="tabs(event, 'ask-an-rm');getChatLog('#ask-an-rm-discussion')">
                 <h5 class="tab-text" id="ask-an-rm-button">Ask an RM</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'inspiration-advice')">
+            <div class="tab-buttons" onclick="tabs(event, 'inspiration-advice');getChatLog('#inspiration-advice-discussion')">
                 <h5 class="tab-text" id="inspiration-advice-button">Inspiration/Advice</h5>
             </div>
         </div>
@@ -53,11 +53,11 @@
 
             <div class="write-a-post">
                 <div class="post-main">
-                        <h6 id="create-post-date"></h6>
+                        <h6 class="today-date" id="create-post-date"></h6>
                     <div class="comment-header">
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
-                            <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
+                            <h3 class="name display-name" onclick="sendEmail()"></h3>
                             <h5 class="service-start">Service starts June 3rd</h5>
                         </div>
                     </div>
@@ -66,51 +66,67 @@
                 </div>
             </div>
 
-            <div id="discussion">
-                <!-- <div class="post">
-                    <div class="post-main">
-                            <h6 class="date">02/23/24</h6>
-                        <div class="comment-header">
-                            <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
-                            <div class="name-info">
-                                <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
-                                <h5 class="service-start">Service starts June 3rd</h5>
-                            </div>
-                        </div>
-                        <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
-                        <div class="comments-header">
-                            <h6 class="comment-label">Comments</h6>
-                            <div id="picture" class="add-comment"><img class='add-comment-img' width="15px" src="static/add-comment.svg" alt="profile picture" /></img>
-                        </div>
-                        
+            <div id="introduce-yourself-discussion">
+            </div>
 
-                    </div>
+        </div>
 
-                    <div class="comment">
-                        <div class="post-main">
-                            <h6 class="date">02/23/24</h6>
-                            <div class="comment-header">
-                                <div id="picture" class="mini-profile1"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
-                                <div class="name-info">
-                                    <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
-                                    <h5 class="service-start">Service starts June 3rd</h5>
-                                </div>
-                            </div>
-                            <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
+        <div class="tab-content" id="discussion-tab">
+            <div class="write-a-post">
+                <div class="post-main">
+                        <h6 class="today-date" id="create-post-date"></h6>
+                    <div class="comment-header">
+                        <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                        <div class="name-info">
+                            <h3 class="name display-name" onclick="sendEmail()"></h3>
+                            <h5 class="service-start">Service starts June 3rd</h5>
                         </div>
                     </div>
-                </div> -->
+                    <textarea type="text" id="write-post" placeholder="Say something..."></textarea>
+                    <button class="accent-button" onclick="post('#discussion-tab')">Post</button>                 
+                </div>
+            </div>
+
+            <div id="discussion-tab-discussion">
             </div>
         </div>
-
-        <div class="tab-content" id="discussion">
-            <h1>2</h1>
-        </div>
         <div class="tab-content" id="ask-an-rm">
-            <h1>3</h1>
+            <div class="write-a-post">
+                <div class="post-main">
+                        <h6 class="today-date" id="create-post-date"></h6>
+                    <div class="comment-header">
+                        <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                        <div class="name-info">
+                            <h3 class="name display-name" onclick="sendEmail()"></h3>
+                            <h5 class="service-start">Service starts June 3rd</h5>
+                        </div>
+                    </div>
+                    <textarea type="text" id="write-post" placeholder="Say something..."></textarea>
+                    <button class="accent-button" onclick="post('#ask-an-rm')">Post</button>                 
+                </div>
+            </div>
+
+            <div id="ask-an-rm-discussion">
+            </div>
         </div>
         <div class="tab-content" id="inspiration-advice">
-            <h1>4</h1>
+            <div class="write-a-post">
+                <div class="post-main">
+                        <h6 class="today-date" id="create-post-date"></h6>
+                    <div class="comment-header">
+                        <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                        <div class="name-info">
+                            <h3 class="name display-name" onclick="sendEmail()"></h3>
+                            <h5 class="service-start">Service starts June 3rd</h5>
+                        </div>
+                    </div>
+                    <textarea type="text" id="write-post" placeholder="Say something..."></textarea>
+                    <button class="accent-button" onclick="post('#inspiration-advice')">Post</button>                 
+                </div>
+            </div>
+
+            <div id="inspiration-advice-discussion">
+            </div>
         </div>
 
     </main>
@@ -124,8 +140,18 @@
 <script>
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
-    document.getElementById("create-post-date").textContent = new Date().toDateString();
     document.getElementById("area").textContent = getArea();
     document.getElementById("description").textContent = getCityInformation(document.getElementById("description").textContent);
+    
+    displayNames = document.getElementsByClassName("display-name");
+    for (let i = 0; i < displayNames.length; i++) {
+        displayNames[i].textContent = getName();
+    }
+
+    todayDate = document.getElementsByClassName("today-date");
+    for (let i = 0; i < todayDate.length; i++) {
+        todayDate[i].textContent = new Date().toDateString();
+    }
+
 </script>
 </html>

@@ -46,6 +46,10 @@ function login(parentSelector){
     window.location.href = "home.html";
 }
 
+function getName() {
+    return localStorage.getItem('username') ?? 'Unknown User';
+}
+
 function signUp(parentSelector){
     // add check to make sure login is correct
     // add check to make sure all fields are complete
@@ -210,6 +214,7 @@ function addComment(post) {
 }
 
 function getArea() {
+    //this will eventually grab from database/local storage
     return 'Tennessee Knoxville Mission';
 }
 
@@ -221,8 +226,7 @@ function getCityInformation(city) {
 function getChatLog(page) {
     //retrive chat information from database
     //placeholder for actual database information
-    database = [1,2,3,4,5]
-    for (let i = 0, len = database.length, text = ""; i < len; i++) {
+    for (let i = 0, len = database.length; i < len; i++) {
         addChat(page, 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Sample Text');
     }
     
@@ -239,3 +243,14 @@ function updateChat(){
 //     addChat('#discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'Johnny Johnny Yes Papa');
 // }, 5000);
 
+const post = {
+    prefix: "Elder",
+    firstName: "James",
+    lastName: "Wilson",
+    startDate: "06-03-24",
+    endDate: "06-03-26",
+    profileImg: "static/profile-pic.png",
+    post: "This is a sample post"
+  };
+
+database = [post, post, post]
