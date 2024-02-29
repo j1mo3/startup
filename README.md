@@ -53,15 +53,21 @@ For this deliverable, I created the framework for my website with HTML.
 For this deliverable, I created the design for my website using CSS, specifically style.css
 NOTE TO GRADER: I had this really cool idea I wanted to pursue just a couple days ago. I felt confident in my ability to catch up, so I was given permission to change my project on Monday morning. I know it hasn't been much time since then, but I feel excited and confident about my new project. I'm in the process of updating the rest of this document with the new information for my new idea, feel free to reach out to me with any questions!
 
-Header, footer, and main content body
-Navigation elements - I dropped the underlines and changed the color for anchor elements.
-Responsive to window resizing - My app looks great on all window sizes and devices
-Application elements - Used good contrast and whitespace
-Application text content - Consistent fonts
-Application images - Still don't have images and so no styling here. 😔
 - **Header, footer, and main content body** - It all looks great, and each element has it's own style. They are designed in a way that makes it easy for a user to understand and use.
 - **Navigation elements** - Instead of using the basic list and link elements, I dropped the list bullets and underlines, and added a stunning orange border around the pages that contrasts nicely with the rest o the page. They're all line up on the left side of the page which adds a nice design element. I also added the website logo and am having that function as the home link.
 - **Responsive to window resizing** - Website looks great and professional on all screen sizes.
 - **Application elements** - All the elements have their unique style that blends in well with the flow of the design. This includes designs for inputs (text, radio buttons), text, buttons, links, and even added in some styling for cards with border shadow.
 - **Application text content** - Consistent fonts, styled different types of text (h1, a, p, etc...)
 - **Application images** - adjusted image sizes to fit with page, elements they are a part of. I used lots of different images on different pages, and even incorporated it into my header.
+
+## JavaScript Deliverable
+For this deliverable, I wrote some JavaScript that controls all the main functions of the website, making it completely functional for a single user. I also left placeholders for WebSocket and database queries that we will learn more about in the future.
+NOTE TO GRADER: I'm still in the process of updating this document since changing my project idea, it should be fully updated by the end of this week. Been spending my time getting caught up. 
+
+- **login/sign up** - When you press the login button it makes sure that the fields are complete and takes you to my home page. I also left a place in the function where I can check the database to make sure that they have valid credentials. I also added this for the sign-up pages, and added a javascript function to check to make sure their "start date" was before their "end date". It notifies the user if there are an errors that occured. I store this information and display it on the home page.
+- **database** - While it's just dummy data right now, I created a function that loads the posts from the "database". This is on all pages of the home screen.
+- **WebSocket** - I used the setInterval function to add new posts that are being created by "test users" every few seconds. When we get to our WebSocket unit, this will be replaced by people's realtime posts.
+- **application logic** - I implimented a tab system using Javascript to navigate between different subjects on the same page. I also made it possible for the user to create their own post and add it to the stream of posts displayed on the home screen. It's also stored in a placeholder array. Eventually, this will be added to the database, but for now it is a mock representation of the data.
+- **Third Party Call** - I left a javascript placeholder to grab the specific area from the account as well as a little snippet of the area. Right now, this is a hard coded string, but it will eventually fetch data about the area from a 3rd party source.
+- **localstorage** - I was also able to save the username and password using the local memory API. I display this information, but in the future I would also like to display more information from the user such as their email/time of service/etc... Because it's not possible without a database, I left placeholders where I could to represent this technology.
+
