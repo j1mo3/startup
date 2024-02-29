@@ -28,10 +28,8 @@
 
         <div class="info-block">
             <div class="slogan">
-                <h1 class="main-line">Tennessee Knoxville Mission</h1>
-                <h2 class="second-line">
-                    The Tennessee Knoxville mission covers areas in Tennessee, Kentucky, North Carolina, South Carolina, and Georgia.
-                </h2>
+                <h1 class="main-line" id="area"></h1>
+                <h2 class="second-line" id="description"></h2>
             </div>
             <a href="about-my-mission.html"><div id="area-img" class="picture-box"><img src="static/mission-area.png" alt="mission-outline" /></div></a>  
         </div>
@@ -104,7 +102,7 @@
                 </div> -->
             </div>
         </div>
-        
+
         <div class="tab-content" id="discussion">
             <h1>2</h1>
         </div>
@@ -126,6 +124,8 @@
 <script>
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
-    document.getElementById("create-post-date").textContent = new Date().toDateString()
+    document.getElementById("create-post-date").textContent = new Date().toDateString();
+    document.getElementById("area").textContent = getArea();
+    document.getElementById("description").textContent = getCityInformation(document.getElementById("description").textContent);
 </script>
 </html>

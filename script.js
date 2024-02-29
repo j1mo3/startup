@@ -209,6 +209,15 @@ function addComment(post) {
 
 }
 
+function getArea() {
+    return 'Tennessee Knoxville Mission';
+}
+
+function getCityInformation(city) {
+    //this will eventually be my API call which is basic for now
+    return 'The Tennessee Knoxville mission covers areas in Tennessee, Kentucky, North Carolina, South Carolina, and Georgia.';
+}
+
 function getChatLog(page) {
     //retrive chat information from database
     //placeholder for actual database information
