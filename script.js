@@ -16,6 +16,7 @@ function tabs(evt, tab_name){
     
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tab_name).style.display = "flex";
+    document.getElementById(tab_name).style.alignItems = "flex-start";
     evt.currentTarget.className += " active";
 }
 
@@ -120,5 +121,66 @@ function missionary_type(start, end) {
 }
 
 function sendEmail() {
-    window.open('mailto:test@example.com?subject=subject&body=body');
+    // window.open('mailto:test@example.com?subject=subject&body=body');
+}
+
+function post(page) {
+    const post_input = document.querySelector("#write-post");
+    text = post_input.value.replace(/\r?\n/g, '<br>');
+
+    post_div = document.createElement('div');
+    post_div.classList.add('post');
+    parentElement = document.querySelector(page);
+    parentElement.appendChild(post_div);
+
+    post_main_div = document.createElement('div');
+    post_main_div.classList.add('post-main');
+    post_div.appendChild(post_main_div);
+    
+    date_h6 = document.createElement('h6');
+    date_h6.classList.add('date');
+    date_h6.textContent = new Date().toDateString();
+    post_main_div.appendChild(date_h6);
+
+    comment_header_div = document.createElement('div');
+    comment_header_div.classList.add('comment-header');
+    post_main_div.appendChild(comment_header_div);
+
+    mini_profile_div = document.createElement('div');
+    mini_profile_div.classList.add('mini-profile');
+    comment_header_div.appendChild(mini_profile_div);
+
+    img = document.createElement("img");
+    img.classList.add('img_profile_pic')
+    img.src = "static/profile-pic.png";
+    img.style.width = '50px';
+    
+    mini_profile_div.appendChild(img);
+
+    name_info_div = document.createElement('div');
+    name_info_div.classList.add('name-info');
+    comment_header_div.appendChild(name_info_div);
+
+    name_h3 = document.createElement('h3');
+    name_h3.classList.add('name');
+    name_h3.onclick = sendEmail();
+    name_h3.textContent = 'James Wilson'
+    name_info_div.appendChild(name_h3);
+
+    service_start_h5 = document.createElement('h5');
+    service_start_h5.classList.add('service-start');
+    service_start_h5.textContent = 'Service starts June 3rd';
+    name_info_div.appendChild(service_start_h5);
+
+    comment_text_p = document.createElement('p');
+    comment_text_p.classList.add('comment-text');
+    comment_text_p.innerHTML = text;
+    post_main_div.appendChild(comment_text_p);
+
+    comment_header_h6 = document.createElement('h6');
+    comment_header_h6.classList.add('comment-header');
+    comment_header_h6.textContent = 'Comments';
+    post_main_div.appendChild(comment_header_h6);
+
+    post_input.value = ''
 }

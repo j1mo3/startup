@@ -53,7 +53,7 @@
 
         <div class="tab-content" id="introduce-yourself">
 
-            <div class="post">
+            <div class="write-a-post">
                 <div class="post-main">
                         <h6 id="create-post-date"></h6>
                     <div class="comment-header">
@@ -63,38 +63,40 @@
                             <h5 class="service-start">Service starts June 3rd</h5>
                         </div>
                     </div>
-                    <input type="text" id="write-post" placeholder="Say something...">                    
+                    <textarea type="text" id="write-post" placeholder="Say something..."></textarea>
+                    <button class="accent-button" onclick="post('#discussion')">Post</button>                 
                 </div>
             </div>
 
-            <div class="post">
-                <div class="post-main">
-                        <h6 class="date">02/23/24</h6>
-                    <div class="comment-header">
-                        <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
-                        <div class="name-info">
-                            <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
-                            <h5 class="service-start">Service starts June 3rd</h5>
-                        </div>
-                    </div>
-                    <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
-                    <h6 class="comment-header">Comments</h6>
-                </div>
-
-                <div class="comment">
+            <div id="discussion">
+                <div class="post">
                     <div class="post-main">
-                        <h6 class="date">02/23/24</h6>
+                            <h6 class="date">02/23/24</h6>
                         <div class="comment-header">
-                            <div id="picture" class="mini-profile1"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                            <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                             <div class="name-info">
                                 <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
                                 <h5 class="service-start">Service starts June 3rd</h5>
                             </div>
                         </div>
                         <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
+                        <h6 class="comment-header">Comments</h6>
+                    </div>
+
+                    <div class="comment">
+                        <div class="post-main">
+                            <h6 class="date">02/23/24</h6>
+                            <div class="comment-header">
+                                <div id="picture" class="mini-profile1"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                                <div class="name-info">
+                                    <h3 class="name" onclick="sendEmail()">Elder James Wilson</h3>
+                                    <h5 class="service-start">Service starts June 3rd</h5>
+                                </div>
+                            </div>
+                            <p class="comment-text">Hello there! My name is James! I go to BYU studying CS and am excited to serve in Knoxville!</p>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="tab-content" id="discussion">
