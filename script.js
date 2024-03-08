@@ -305,7 +305,7 @@ function updateChat(){
 
 setInterval(() => {
     addChat('#introduce-yourself-discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'WebSocketTest');
-}, 5000);
+}, 10000);
 
 const post1 = {
     prefix: "Elder",
