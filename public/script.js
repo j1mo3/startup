@@ -321,3 +321,33 @@ database = [post1, post1, post1]
 database2 = [post1, post1, post1]
 database3 = [post1, post1, post1]
 database4 = [post1, post1, post1]
+
+async function displayQuote(country, object) {
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          console.log(jsonResponse);
+          var subregion = jsonResponse[0].subregion;
+          var capital = jsonResponse[0].capital[0];
+          var border_num = (jsonResponse[0].borders).length;
+          console.log(subregion);
+          console.log(capital);
+          console.log(border_num);
+          var sentence = `${country} borders ${border_num} countries and is located in ${subregion}. It's capital is ${capital}.`;
+          const containerEl = document.querySelector(`#${object}`);
+          containerEl.textContent = sentence;
+        });
+    
+        // const containerEl = document.querySelector('#quote');
+  
+        // const quoteEl = document.createElement('p');
+        // quoteEl.classList.add('quote');
+        // const authorEl = document.createElement('p');
+        // authorEl.classList.add('author');
+  
+        // quoteEl.textContent = data.content;
+        // authorEl.textContent = data.author;
+  
+        // containerEl.appendChild(quoteEl);
+        // containerEl.appendChild(authorEl);
+  }

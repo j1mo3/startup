@@ -141,7 +141,7 @@
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
     document.getElementById("area").textContent = getArea();
-    document.getElementById("description").textContent = getCityInformation(document.getElementById("description").textContent);
+    //document.getElementById("description").textContent = getCityInformation(document.getElementById("description").textContent);
     
     displayNames = document.getElementsByClassName("display-name");
     for (let i = 0; i < displayNames.length; i++) {
@@ -152,6 +152,8 @@
     for (let i = 0; i < todayDate.length; i++) {
         todayDate[i].textContent = new Date().toDateString();
     }
+
+    displayQuote(getMissionCountry(), 'description');
 
 </script>
 </html>

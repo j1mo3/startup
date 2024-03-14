@@ -14,6 +14,15 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/missionary-connect-api`, apiRouter);
 
+
+apiRouter.get('/get-country', (_req, res) => {
+  res.send(country)
+});
+
+apiRouter.get('/get-posts', (_req, res) => {
+  res.send(posts)
+});
+
 // // GetScores
 // apiRouter.get('/scores', (_req, res) => {
 //   res.send(scores);
