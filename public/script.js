@@ -357,4 +357,16 @@ async function displayQuote(country, object) {
     }
 }
 
-displayScores(scores);
+async function getLogin() {
+    try {
+        // Get the latest high scores from the service
+        const response = await fetch('/missionary-connect-api/get-login');
+        username = await response.json();
+
+        // Save the scores in case we go offline in the future
+        localStorage.setItem('username', JSON.stringify(username));
+    } catch {
+        // If there was an error then just use the last saved scores
+        const scoresText = localStorage.getItem('username');
+    }
+}

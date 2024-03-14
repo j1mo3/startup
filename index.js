@@ -28,6 +28,11 @@ apiRouter.get('/get-posts', (_req, res) => {
   res.send(posts)
 });
 
+apiRouter.get('/get-login', (_req, res) => {
+  res.send(loginInformation)
+});
+
+
 //make post
 apiRouter.post('/add-post', (req, res) => {
     scores = updatePosts(req.body, posts);
