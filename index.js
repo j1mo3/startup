@@ -14,25 +14,26 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/missionary-connect-api`, apiRouter);
 
-
+//get service country
 apiRouter.get('/get-country', (_req, res) => {
   res.send(country)
 });
 
+apiRouter.get('get-area', (_req, res) => {
+  res.send(missionArea)
+});
+
+//get current posts
 apiRouter.get('/get-posts', (_req, res) => {
   res.send(posts)
 });
 
-// // GetScores
-// apiRouter.get('/scores', (_req, res) => {
-//   res.send(scores);
-// });
+//make post
+apiRouter.post('/add-post', (req, res) => {
+    scores = updatePosts(req.body, posts);
+    res.send(posts);
+  });
 
-// // SubmitScore
-// apiRouter.post('/score', (req, res) => {
-//   scores = updateScores(req.body, scores);
-//   res.send(scores);
-// });
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -45,24 +46,13 @@ app.listen(port, () => {
 
 // // updateScores considers a new score for inclusion in the high scores.
 // // The high scores are saved in memory and disappear whenever the service is restarted.
-// let scores = [];
-// function updateScores(newScore, scores) {
-//   let found = false;
-//   for (const [i, prevScore] of scores.entries()) {
-//     if (newScore.score > prevScore.score) {
-//       scores.splice(i, 0, newScore);
-//       found = true;
-//       break;
-//     }
-//   }
+let posts = [];
+function updatePosts(newPost, posts) {
+  posts.unshift(newPost);
 
-//   if (!found) {
-//     scores.push(newScore);
-//   }
+  if (posts.length > 50) {
+    posts.length = 50;
+  }
 
-//   if (scores.length > 10) {
-//     scores.length = 10;
-//   }
-
-//   return scores;
-// }
+  return posts;
+}
