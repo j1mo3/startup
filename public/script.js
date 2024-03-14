@@ -367,6 +367,6 @@ async function getLogin() {
         localStorage.setItem('username', JSON.stringify(username));
     } catch {
         // If there was an error then just use the last saved scores
-        const scoresText = localStorage.getItem('username');
+        const username = localStorage.getItem('username');
     }
 }
