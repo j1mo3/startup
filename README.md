@@ -71,3 +71,11 @@ NOTE TO GRADER: I'm still in the process of updating this document since changin
 - **Third Party Call** - I left a javascript placeholder to grab the specific area from the account as well as a little snippet of the area. Right now, this is a hard coded string, but it will eventually fetch data about the area from a 3rd party source.
 - **localstorage** - I was also able to save the username and password using the local memory API. I display this information, but in the future I would also like to display more information from the user such as their email/time of service/etc... Because it's not possible without a database, I left placeholders where I could to represent this technology.
 
+## Service deliverable
+For this deliverable I added backend endpoints that receives posts, returns all posts, and retrives posts. I use node.js and static middleware. I also call a 3rd party input to get information.
+
+- **Node.js/Express HTTP service** - done!
+- **Static middleware for frontend** - done!
+- **Calls to third party endpoints** - I use the restcountries third party API to get information about the area. This will be displayed on the homescreen as soon as my placeholder for the backend can actually retrive information from the database.
+- **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post.
+- **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area.
