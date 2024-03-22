@@ -79,3 +79,13 @@ For this deliverable I added backend endpoints that receives posts, returns all 
 - **Calls to third party endpoints** - I use the restcountries third party API to get information about the area. This will be displayed on the homescreen as soon as my placeholder for the backend can actually retrive information from the database.
 - **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post.
 - **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area.
+
+## DB/Login deliverable
+For this deliverable I associate the posts with the logged in user. Users can login to accounts they have created and are stored in the database. They can also create new accounts where all their information is stored for future use. I stored posts in the database as well.
+
+- **MongoDB Atlas database created** - done!
+- **Stores data in MongoDB** - done!
+- **User registration** - Users can create a new account and are required to enter in all information. This is stored in my MangoDB database.
+- **existing user** - Stores information of existing user. User can make posts and view posts. Posts contain user data. 
+- **Use MongoDB to store credentials** - Stores both users and posts. Credentials can be changed under edit profile.
+- **Restricts functionality** - You cannot view or write posts until you have logged in.
