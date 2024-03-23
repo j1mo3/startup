@@ -8,20 +8,21 @@ const db = client.db('missionaryConnect');
 const postCollection = db.collection('posts');
 const accounts = db.collection('accounts')
 
-// (async function testConnection() {
-//   await client.connect();
-//   await db.command({ ping: 1 });
-// })().catch((ex) => {
-//   console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-//   process.exit(1);
-// });
+// This will asynchronously test the connection and exit the process if it fails
+(async function testConnection() {
+  await client.connect();
+  await db.command({ ping: 1 });
+})().catch((ex) => {
+  console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+  process.exit(1);
+});
 
-async function getPosts() {
+async function getPosts(discussion) {
   const currentDate = new Date();
   const startDate = new Date(currentDate);
   startDate.setDate(startDate.getDate() - 60);
 
-  const query = { date: { $gt: startDate } };
+  const query = { date: { $gt: startDate }, discussion: discussion };
   const options = {
     sort: { date: -1 },
   };
@@ -29,13 +30,14 @@ async function getPosts() {
   return cursor.toArray();
 }
 
-async function addPost(username, date, service_date, text) {
+async function addPost(username, date, service_date, text, discussion) {
   //add post to database
   const post = {
     username: username,
     date: date,
     service_data: service_date,
-    text: text
+    text: text,
+    discussion: discussion
   };
   await postCollection.insertOne(post);
 }
@@ -44,6 +46,10 @@ async function getAccount(username) {
   const query = { username: usernameToFind };
   const accountInfo = accounts.find(query);
   return accountInfo;
+}
+
+async function updateAccount() {
+
 }
 
 

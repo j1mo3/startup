@@ -35,16 +35,16 @@
         </div>
 
         <div class="tabs">
-            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself');getChatLog('#introduce-yourself-discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'introduce-yourself');getPosts('introductions');">
                 <h5 class="tab-text" id="introduce-yourself-button">Introduce Yourself</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'discussion-tab');getChatLog('#discussion-tab-discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'discussion-tab');getPosts('main');">
                 <h5 class="tab-text" id="discussion-button">Discussion</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'ask-an-rm');getChatLog('#ask-an-rm-discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'ask-an-rm');getPosts('ask');">
                 <h5 class="tab-text" id="ask-an-rm-button">Ask an RM</h5>
             </div>
-            <div class="tab-buttons" onclick="tabs(event, 'inspiration-advice');getChatLog('#inspiration-advice-discussion')">
+            <div class="tab-buttons" onclick="tabs(event, 'inspiration-advice');getPosts('inspiration');">
                 <h5 class="tab-text" id="inspiration-advice-button">Inspiration/Advice</h5>
             </div>
         </div>
@@ -153,7 +153,7 @@
         todayDate[i].textContent = new Date().toDateString();
     }
 
-    displayQuote(getMissionCountry(), 'description');
+    displayQuote(getArea(), 'description');
     getPosts();
 </script>
 </html>

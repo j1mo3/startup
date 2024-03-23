@@ -1,3 +1,11 @@
+//discussion name to id dictionary
+discussion_to_ids = {
+    "introductions": "#introduce-yourself-discussion",
+    "main": "#discussion-tab-discussion",
+    "ask": "#ask-an-rm-discussion",
+    "inspiration": "#inspiration-advice-discussion"
+}
+
 function tabs(evt, tab_name){
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -21,6 +29,8 @@ function tabs(evt, tab_name){
 }
 
 function login(parentSelector){
+    //add login api when I get there
+
     // add check to make sure login is correct
     // add check to make sure all fields are complete
     const username = document.querySelector("#username");
@@ -29,9 +39,7 @@ function login(parentSelector){
     try {
         document.querySelector(parentSelector).innerHTML = "";
     }
-    catch {
-        
-    }
+    catch {}
     if (username.value === "" || password.value === "") {
         const newChild = document.createElement('p');
         newChild.textContent = 'Username or Password is Incorrect';
@@ -46,11 +54,9 @@ function login(parentSelector){
     window.location.href = "home.html";
 }
 
-function getName() {
-    return localStorage.getItem('username') ?? 'Unknown User';
-}
-
 function signUp(parentSelector){
+    //add api steps
+    
     // add check to make sure login is correct
     // add check to make sure all fields are complete
     const username = document.querySelector("#username");
@@ -108,10 +114,27 @@ function signUp(parentSelector){
     window.location.href = "home.html";
 }
 
-function missionary_type(start, end) {
+async function getName() {
+    return 'James Wilson';
+    const response = await fetch(`/api/account?username=${username}`);
+    account = await response.json();
+    return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
+}
+
+async function getArea() {
+    return 'USA';
+    const response = await fetch(`/api/account?username=${username}`);
+    account = await response.json();
+    return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
+}
+
+async function missionary_type(username) {
+    const response = await fetch(`/api/account?username=${username}`);
+    account = await response.json();
+
     today = new Date()
-    start_date = new Date(start)
-    end_date = new Date(end)
+    start_date = new Date(account['start_date'])
+    end_date = new Date(account['end_date'])
 
     if (end_date < today) {
         return "Service ended " + end_date.toDateString();
@@ -124,46 +147,19 @@ function missionary_type(start, end) {
     }
 }
 
-function sendEmail() {
-    // window.open('mailto:test@example.com?subject=subject&body=body');
-}
-
-function post(page, input) {
-    const post_input = document.querySelector(input);
-    text = post_input.value.replace(/\r?\n/g, '<br>');
-
-    newPost = {
-        prefix: "Elder",
-        firstName: "James",
-        lastName: "Wilson",
-        startDate: "06-03-24",
-        endDate: "06-03-26",
-        profileImg: "static/profile-pic.png",
-        post: text
-    };
-    // placeholder for when I can use datebase information
-    addChat(page, newPost["prefix"], newPost["profileImg"], newPost["firstName"] + ' ' + newPost["lastName"], newPost["startDate"], newPost["endDate"], new Date().toDateString(), newPost["post"]);
-
-    post_input.value = ''
-    
-    if (page === '#introduce-yourself-discussion') {
-        database.push(newPost)
-    }
-    if (page === '#discussion-tab-discussion') {
-        database2.push(newPost)
-    }
-    if (page === '#ask-an-rm-discussion') {
-        database3.push(newPost)
-    }
-    if (page === '#inspiration-advice-discussion') {
-        database4.push(newPost)
+async function getPosts(discussion) {
+    const response = await fetch(`/api/posts?discussion=${discussion}`);
+    posts = await response.json();
+    for (let i = 0; i < posts.length; i++) {
+        _post = posts[i];
+        buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text'])
     }
 }
 
-function addChat(page, prefix, img_src, name, service_start, service_end, date, chat) {
+function buildPost(parent, prefix, name, service_start, service_end, date, text) {
     post_div = document.createElement('div');
     post_div.classList.add('post');
-    parentElement = document.querySelector(page);
+    parentElement = document.querySelector(parent);
     parentElement.appendChild(post_div);
 
     post_main_div = document.createElement('div');
@@ -185,7 +181,7 @@ function addChat(page, prefix, img_src, name, service_start, service_end, date, 
 
     img = document.createElement("img");
     img.classList.add('img_profile_pic')
-    img.src = img_src;
+    img.src = 'static/profile-pic.png';
     img.style.width = '50px';
     
     mini_profile_div.appendChild(img);
@@ -207,8 +203,7 @@ function addChat(page, prefix, img_src, name, service_start, service_end, date, 
 
     comment_text_p = document.createElement('p');
     comment_text_p.classList.add('comment-text');
-    console.log(chat);
-    comment_text_p.innerHTML = chat;
+    comment_text_p.innerHTML = text;
     post_main_div.appendChild(comment_text_p);
 
     comments_header_div = document.createElement('div');
@@ -230,97 +225,51 @@ function addChat(page, prefix, img_src, name, service_start, service_end, date, 
     img.style.width = '15px';
     
     add_comment_div.appendChild(img);
-
-    //add to placeholder database
-    // newPost = {
-    //     prefix: "Elder",
-    //     firstName: "James",
-    //     lastName: "Wilson",
-    //     startDate: "06-03-24",
-    //     endDate: "06-03-26",
-    //     profileImg: "static/profile-pic.png",
-    //     post: chat
-    //   };
-    
-    // database.push(newPost);
-    // console.log(database);
 }
 
-function addComment(post) {
+async function makePost(discussion, username, input) {
+    const post_input = document.querySelector(input);
+    text = post_input.value.replace(/\r?\n/g, '<br>');
 
+    response = await fetch(`/api/account?username=${username}`);
+    account = await response.json();
+
+    postInformation = {
+        dicussion: discussion_to_ids[discussion],
+        prefix: account['prefix'],
+        username: account['name'],
+        date: new Date().toDateString(),
+        service_start: account['service_start'],
+        service_end: account['service_end'],
+        text: text,
+    }
+
+    response = await fetch('/api/post', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(postInformation)
+    });
+
+    getPosts(discussion)
+    //reset text box
+    post_input.value = ''
 }
 
-function getArea() {
+
+async function getArea(username) {
     //this will eventually grab from database/local storage
-    return 'Tennessee Knoxville Mission';
+    const response = await fetch(`/api/account?username=${username}`);
+    account = await response.json();
+    return account['area'];
 }
 
-function getCityInformation(city) {
-    //this will eventually be my API call which is basic for now
-    return 'The Tennessee Knoxville mission covers areas in Tennessee, Kentucky, North Carolina, South Carolina, and Georgia.';
-}
-
-function getChatLog(page) {
-    //retrive chat information from database
-    //placeholder for actual database information
-    console.log('Clicked!');
-    
-    parentElement = document.querySelector(page);
-    parentElement.innerHTML = ""
-
-    if (page === '#introduce-yourself-discussion') {
-        for (let i = 0, len = database.length; i < len; i++) {
-            database[i]["Prefix"]
-            addChat(page, database[i]["prefix"], database[i]["profileImg"], database[i]["firstName"] + ' ' + database[i]["lastName"], database[i]["startDate"], database[i]["endDate"], new Date().toDateString(), database[i]["post"]);
-        }
-    }
-    if (page === '#discussion-tab-discussion') {
-        for (let i = 0, len = database2.length; i < len; i++) {
-            database2[i]["Prefix"]
-            addChat(page, database2[i]["prefix"], database2[i]["profileImg"], database2[i]["firstName"] + ' ' + database2[i]["lastName"], database2[i]["startDate"], database2[i]["endDate"], new Date().toDateString(), database2[i]["post"]);
-        }
-    }
-    if (page === '#ask-an-rm-discussion') {
-        for (let i = 0, len = database3.length; i < len; i++) {
-            database3[i]["Prefix"]
-            addChat(page, database3[i]["prefix"], database3[i]["profileImg"], database3[i]["firstName"] + ' ' + database3[i]["lastName"], database3[i]["startDate"], database3[i]["endDate"], new Date().toDateString(), database3[i]["post"]);
-        }
-    }
-    if (page === '#inspiration-advice-discussion') {
-        for (let i = 0, len = database4.length; i < len; i++) {
-            database[i]["Prefix"]
-            addChat(page, database4[i]["prefix"], database4[i]["profileImg"], database4[i]["firstName"] + ' ' + database4[i]["lastName"], database4[i]["startDate"], database4[i]["endDate"], new Date().toDateString(), database4[i]["post"]);
-        }
-    }
-    
-    
-}
 
 function updateChat(){
-    //retrive chat information here
-    //websocket for when it can grab chats automatically
-    //for now, refer to the set interval
-}
-
-
-setInterval(() => {
+    //websocket placeholder
+    setInterval(() => {
     addChat('#introduce-yourself-discussion', 'Elder', 'static/profile-pic.png', 'James Wilson', '06-03-2024', '06-03-2026', '02-28-24', 'WebSocketTest');
-}, 10000);
-
-const post1 = {
-    prefix: "Elder",
-    firstName: "James",
-    lastName: "Wilson",
-    startDate: "06-03-24",
-    endDate: "06-03-26",
-    profileImg: "static/profile-pic.png",
-    post: "This is a sample post"
-  };
-
-database = [post1, post1, post1]
-database2 = [post1, post1, post1]
-database3 = [post1, post1, post1]
-database4 = [post1, post1, post1]
+    }, 10000);
+}
 
 async function displayQuote(country, object) {
     fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -330,43 +279,42 @@ async function displayQuote(country, object) {
           var subregion = jsonResponse[0].subregion;
           var capital = jsonResponse[0].capital[0];
           var border_num = (jsonResponse[0].borders).length;
-          console.log(subregion);
-          console.log(capital);
-          console.log(border_num);
           var sentence = `${country} borders ${border_num} countries and is located in ${subregion}. It's capital is ${capital}.`;
           const containerEl = document.querySelector(`#${object}`);
           containerEl.textContent = sentence;
         });
   }
 
-  async function getPosts() {
-    let scores = [];
-    try {
-        // Get the latest high scores from the service
-        const response = await fetch('/missionary-connect-api/get-posts');
-        posts = await response.json();
 
-        // Save the scores in case we go offline in the future
-        localStorage.setItem('posts', JSON.stringify(posts));
-    } catch {
-        // If there was an error then just use the last saved scores
-        const scoresText = localStorage.getItem('posts');
-        if (scoresText) {
-        scores = JSON.parse(scoresText);
-        }
-    }
-}
 
-async function getLogin() {
-    try {
-        // Get the latest high scores from the service
-        const response = await fetch('/missionary-connect-api/get-login');
-        username = await response.json();
+//   async function getPosts() {
+//     let scores = [];
+//     try {
+//         // Get the latest high scores from the service
+//         const response = await fetch('/missionary-connect-api/get-posts');
+//         posts = await response.json();
 
-        // Save the scores in case we go offline in the future
-        localStorage.setItem('username', JSON.stringify(username));
-    } catch {
-        // If there was an error then just use the last saved scores
-        const username = localStorage.getItem('username');
-    }
-}
+//         // Save the scores in case we go offline in the future
+//         localStorage.setItem('posts', JSON.stringify(posts));
+//     } catch {
+//         // If there was an error then just use the last saved scores
+//         const scoresText = localStorage.getItem('posts');
+//         if (scoresText) {
+//         scores = JSON.parse(scoresText);
+//         }
+//     }
+// }
+
+// async function getLogin() {
+//     try {
+//         // Get the latest high scores from the service
+//         const response = await fetch('/missionary-connect-api/get-login');
+//         username = await response.json();
+
+//         // Save the scores in case we go offline in the future
+//         localStorage.setItem('username', JSON.stringify(username));
+//     } catch {
+//         // If there was an error then just use the last saved scores
+//         const username = localStorage.getItem('username');
+//     }
+// }

@@ -12,7 +12,7 @@ app.use(express.static('public'));
 // Router for service endpoints
 var apiRouter = express.Router();
 
-app.use(`/api`, apiRouter);
+app.use('/api', apiRouter);
 
 //get
 apiRouter.get('/account', async (_req, res) => {
@@ -20,14 +20,14 @@ apiRouter.get('/account', async (_req, res) => {
   res.send(account);
 });
 apiRouter.get('/posts', async (_req, res) => {
-  const posts = await DB.getPosts();
+  const posts = await DB.getPosts(_req.discussion);
   res.send(posts);
 });
 
 // post
 apiRouter.post('/post', async (req, res) => {
-  DB.addPost(req.username, req.date, req.service_date, req.text);
-  const posts = await DB.getPosts();
+  DB.addPost(req.username, req.date, req.service_date, req.text, req.discussion);
+  const posts = await DB.getPosts(req.discussion);
   res.send(posts);
 });
 apiRouter.post('/updateAccount', async (req, res) => {
