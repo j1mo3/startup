@@ -15,7 +15,8 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 //get
-apiRouter.get('/account', (_req, res) => {
+apiRouter.get('/account', async (_req, res) => {
+  const account = await DB.getAccount(_req.username);
   res.send(account);
 });
 apiRouter.get('/posts', async (_req, res) => {
@@ -24,12 +25,14 @@ apiRouter.get('/posts', async (_req, res) => {
 });
 
 // post
-apiRouter.post('/post', (req, res) => {
-  post = addPost(req.body, scores);
-  res.send(post);
+apiRouter.post('/post', async (req, res) => {
+  DB.addPost(req.post);
+  const posts = await DB.getPosts();
+  res.send(posts);
 });
-apiRouter.post('/updateAccount', (req, res) => {
-  account = updateAccount(req.body, scores);
+apiRouter.post('/updateAccount', async (req, res) => {
+  DB.updateAccount(req.account);
+  const account = await DB.getAccount();
   res.send(account);
 });
 

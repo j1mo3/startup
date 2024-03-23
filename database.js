@@ -29,6 +29,12 @@ async function getPosts() {
   return cursor.toArray();
 }
 
+async function getAccount(username) {
+  const query = { username: usernameToFind };
+  const accountInfo = accounts.find(query);
+  return accountInfo;
+}
+
 async function checkLogin(username, password){
   //check username and password
   //redirect to home screen
