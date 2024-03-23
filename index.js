@@ -26,12 +26,12 @@ apiRouter.get('/posts', async (_req, res) => {
 
 // post
 apiRouter.post('/post', async (req, res) => {
-  DB.addPost(req.post);
+  DB.addPost(req.username, req.date, req.service_date, req.text);
   const posts = await DB.getPosts();
   res.send(posts);
 });
 apiRouter.post('/updateAccount', async (req, res) => {
-  DB.updateAccount(req.account);
+  DB.updateAccount(req.username);
   const account = await DB.getAccount();
   res.send(account);
 });

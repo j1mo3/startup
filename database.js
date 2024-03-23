@@ -29,26 +29,6 @@ async function getPosts() {
   return cursor.toArray();
 }
 
-async function getAccount(username) {
-  const query = { username: usernameToFind };
-  const accountInfo = accounts.find(query);
-  return accountInfo;
-}
-
-async function checkLogin(username, password){
-  //check username and password
-  //redirect to home screen
-  const query = { username: usernameToFind, password:password };
-  const cursor = accounts.find(query);
-  return cursor;
-}
-
-async function createLogin(){
-  //log credentials in database
-  //check to make sure username isn't taken
-  //redirect to home screen
-}
-
 async function addPost(username, date, service_date, text) {
   //add post to database
   const post = {
@@ -57,6 +37,30 @@ async function addPost(username, date, service_date, text) {
     service_data: service_date,
     text: text
   };
-  await collection.insertOne(post);
+  await postCollection.insertOne(post);
 }
+
+async function getAccount(username) {
+  const query = { username: usernameToFind };
+  const accountInfo = accounts.find(query);
+  return accountInfo;
+}
+
+
+
+
+
+// async function checkLogin(username, password){
+//   //check username and password
+//   //redirect to home screen
+//   const query = { username: usernameToFind, password:password };
+//   const cursor = accounts.find(query);
+//   return cursor;
+// }
+
+// async function createLogin(){
+//   //log credentials in database
+//   //check to make sure username isn't taken
+//   //redirect to home screen
+// }
 
