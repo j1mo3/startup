@@ -52,8 +52,7 @@ async function updateAccount() {
 
 }
 
-
-
+module.exports = { getPosts, addPost, getAccount, updateAccount };
 
 
 // async function checkLogin(username, password){
