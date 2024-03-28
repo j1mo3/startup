@@ -81,6 +81,7 @@ For this deliverable I added backend endpoints that receives posts, returns all 
 - **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area.
 
 ## DB/Login deliverable
+NOTE TO TA: I have all of these implimented and I've gone over them a ton, I think something might be wrong with my express because it's not working. I figured I'd turn it in on time but then I will go to office hours Monday to get this sorted out. I have almost all of it written out, just believe there are a couple of small adjustments I need to make for it to work. Below is what I plan on have working/implimented but it's not working correctly (likely because of express).
 For this deliverable I associate the posts with the logged in user. Users can login to accounts they have created and are stored in the database. They can also create new accounts where all their information is stored for future use. I stored posts in the database as well.
 
 - **MongoDB Atlas database created** - done!
