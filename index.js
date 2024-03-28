@@ -35,13 +35,17 @@ apiRouter.post('/updateAccount', async (req, res) => {
   res.send(account);
 });
 
+app.get('/store/:storeName', (req, res, next) => {
+  res.send({name: req.params.storeName});
+});
+
 //login service
 // createAuthorization from the given credentials
 app.post('/auth/create', async (req, res) => {
   if (await getUser(req.body.email)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password);
+    const user = await createUser(req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.mission, req.body.startDate, req.body.endDate, req.body.phoneNumber, req.body.prefix);
     setAuthCookie(res, user.token);
     res.send({
       id: user._id,
@@ -49,9 +53,9 @@ app.post('/auth/create', async (req, res) => {
   }
 });
 
-// loginAuthorization from the given credentials
+// // loginAuthorization from the given credentials
 app.post('/auth/login', async (req, res) => {
-  const user = await getUser(req.body.email);
+  const user = await getUser(req.body.username);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       setAuthCookie(res, user.token);
@@ -62,25 +66,25 @@ app.post('/auth/login', async (req, res) => {
   res.status(401).send({ msg: 'Unauthorized' });
 });
 
-// getMe for the currently authenticated user
+// // getMe for the currently authenticated user
 app.get('/user/me', async (req, res) => {
   authToken = req.cookies['token'];
   const user = await collection.findOne({ token: authToken });
   if (user) {
-    res.send({ email: user.email });
+    res.send({ username: user.username });
     return;
   }
   res.status(401).send({ msg: 'Unauthorized' });
 });
 
-function getUser(email) {
-  return collection.findOne({ email: email });
+function getUser(username) {
+  return collection.findOne({ username: username });
 }
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
   const user = {
-    email: email,
+    username: username,
     password: passwordHash,
     token: uuid.v4(),
   };
