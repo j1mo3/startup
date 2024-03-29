@@ -147,7 +147,8 @@ async function getPosts(discussion) {
     posts = await response.json();
     for (let i = 0; i < posts.length; i++) {
         _post = posts[i];
-        res = await fetch(`/api/account/${_post['account_id']}`);
+        res = await fetch(`/api/account/${_post['username']}`);
+        console.log(res);
         _account = await res.json();
         // buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text']);
         await buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['serviceStart'], _account['serviceEnd'], _post['date'], _post['text']);
@@ -234,17 +235,14 @@ async function makePost(discussion, username, input) {
     const post_input = document.querySelector(input);
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
-    response = await fetch(`/api/account?username=${username}`);
-    account = await response.json();
+    // response = await fetch(`/api/account/${username}`);
+    // account = await response.json();
 
     postInformation = {
         dicussion: discussion_to_ids[discussion],
-        prefix: account['prefix'],
-        username: account['name'],
+        username: username,
         date: new Date().toDateString(),
-        service_start: account['service_start'],
-        service_end: account['service_end'],
-        text: text,
+        text: text
     }
 
     response = await fetch('/api/post', {
@@ -253,7 +251,7 @@ async function makePost(discussion, username, input) {
         body: JSON.stringify(postInformation)
     });
 
-    getPosts(discussion)
+    await getPosts(discussion)
     //reset text box
     post_input.value = ''
 }

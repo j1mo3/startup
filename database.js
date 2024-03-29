@@ -1,12 +1,15 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
+//mongodb+srv://jdubs:<password>@cluster0.dadcgqt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+//"hostname": "cluster0.dadcgqt.mongodb.net",
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
 
 const db = client.db('missionaryConnect');
 const postCollection = db.collection('posts');
 const accounts = db.collection('accounts');
+const logins = db.collections('login');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -22,50 +25,60 @@ async function getPosts(discussion) {
   const startDate = new Date(currentDate);
   startDate.setDate(startDate.getDate() - 60);
 
-  const query = { date: { $gt: startDate }, discussion: discussion };
+  const query = { discussion: discussion };
   const options = {
     sort: { date: -1 },
   };
-  const cursor = accounts.find(query, options);
+  const cursor = postCollection.find(query, options);
+  c = await cursor.toArray();
   return cursor.toArray();
 }
 
-async function addPost(username, date, service_date, text, discussion) {
-  //add post to database
-  const post = {
-    username: username,
-    date: date,
-    service_data: service_date,
-    text: text,
-    discussion: discussion
-  };
-  await postCollection.insertOne(post);
+async function getAccount(username) {
+  query = { username: username };
+  accountInfo = accounts.find(query);
+  a = await accountInfo.toArray();
+  return accountInfo;
 }
 
-async function getAccount(username) {
-  const query = { username: usernameToFind };
-  const accountInfo = accounts.find(query);
-  return accountInfo;
+async function createAccount(username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
+  //add post to database
+  const account = {
+    username: username,
+    firstName: firstName,
+    lastName: lastName,
+    missionArea: missionArea,
+    startDate: startDate,
+    endDate: endDate,
+    phoneNumber: phoneNumber,
+    prefix:prefix
+  };
+  await accounts.insertOne(account);
+}
+
+async function createLogin(username, password) {
+  //adds login/password to database
+  const login = {
+    username: username,
+    password: password
+  };
+  await logins.insertOne(login);
+}
+
+
+async function createPost(discussion, username, date, text) {
+  //add post to database
+  const post = {
+    discussion: discussion,
+    username: username,
+    date: date,
+    text: text
+  };
+  await postCollection.insertOne(post);
 }
 
 async function updateAccount() {
 
 }
 
-module.exports = { getPosts, addPost, getAccount, updateAccount };
-
-
-// async function checkLogin(username, password){
-//   //check username and password
-//   //redirect to home screen
-//   const query = { username: usernameToFind, password:password };
-//   const cursor = accounts.find(query);
-//   return cursor;
-// }
-
-// async function createLogin(){
-//   //log credentials in database
-//   //check to make sure username isn't taken
-//   //redirect to home screen
-// }
-
+module.exports = { getPosts, getAccount, createAccount, createLogin, createPost };

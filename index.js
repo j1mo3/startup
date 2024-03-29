@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-//const DB = require('./database.js');
+const DB = require('./database.js');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -15,100 +15,96 @@ app.use('/api', apiRouter);
 
 //get
 apiRouter.get('/account/:username', async (_req, res) => {
-  //const account = await DB.getAccount(_req.params.username);
-  account = {'username': 'jimothy', 'prefix': 'Elder', 'firstName': 'James', 'lastName': 'Wilson', 'area': 'Tennessee Knoxville Mission', 'serviceStart': '06-03-2024', 'serviceEnd': '06-03-2026'};
+  const account = await DB.getAccount(_req.params.username);
   res.send(account);
 });
 apiRouter.get('/posts/:discussion', async (_req, res) => {
-  //const posts = await DB.getPosts(_req.params.discussion);
-  //account_id is username
-  sample_post = {'account_id': 'jimothy', 'date': '03-28-2024', 'text': 'This is a sample post text'};
-  posts = [sample_post, sample_post];
+  const posts = await DB.getPosts(_req.params.discussion);
   res.send(posts);
 });
 
 // post
 apiRouter.post('/post', async (req, res) => {
-  //DB.addPost(req.username, req.date, req.service_date, req.text, req.discussion);
-  //const posts = await DB.getPosts(req.discussion);
-  sample_post = {'account_id': 'jimothy', 'date': '03-28-2024', 'text': 'This is a sample post text created with the API'};
-  res.send(posts);
+  const { discussion, username, date, text } = req.body;
+  await DB.createPost(discussion, username, date, text);
+  res.status(201).send("Post created");
 });
-apiRouter.post('/updateAccount', async (req, res) => {
-  //DB.updateAccount(req.username);
-  //const account = await DB.getAccount();
-  account = {'username': 'jimothy', 'prefix': 'Elder', 'firstName': 'James', 'lastName': 'Wilson', 'area': 'Tennessee Knoxville Mission', 'serviceStart': '06-03-2024', 'serviceEnd': '06-03-2026'};
+
+apiRouter.post('/createAccount', async (req, res) => {
+  const { username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix } = req.body;
+  await DB.createAccount(username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix);
+  res.status(201).send("Account created");
   res.send(account);
 });
 
 //login service
 // createAuthorization from the given credentials
-app.post('/auth/create', async (req, res) => {
-  if (await getUser(req.body.email)) {
-    res.status(409).send({ msg: 'Existing user' });
-  } else {
-    const user = await createUser(req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.mission, req.body.startDate, req.body.endDate, req.body.phoneNumber, req.body.prefix);
-    setAuthCookie(res, user.token);
-    res.send({
-      id: user._id,
-    });
-  }
-});
+// app.post('/auth/create', async (req, res) => {
+//   if (await getUser(req.body.email)) {
+//     res.status(409).send({ msg: 'Existing user' });
+//   } else {
+//     const user = await createUser(req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.mission, req.body.startDate, req.body.endDate, req.body.phoneNumber, req.body.prefix);
+//     setAuthCookie(res, user.token);
+//     res.send({
+//       id: user._id,
+//     });
+//   }
+// });
 
-// loginAuthorization from the given credentials
-app.post('/auth/login', async (req, res) => {
-  const user = await getUser(req.body.username);
-  if (user) {
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      setAuthCookie(res, user.token);
-      res.send({ id: user._id });
-      return;
-    }
-  }
-  res.status(401).send({ msg: 'Unauthorized' });
-});
+// // loginAuthorization from the given credentials
+// app.post('/auth/login', async (req, res) => {
+//   const user = await getUser(req.body.username);
+//   if (user) {
+//     if (await bcrypt.compare(req.body.password, user.password)) {
+//       setAuthCookie(res, user.token);
+//       res.send({ id: user._id });
+//       return;
+//     }
+//   }
+//   res.status(401).send({ msg: 'Unauthorized' });
+// });
 
-// getMe for the currently authenticated user
-app.get('/user/me', async (req, res) => {
-  authToken = req.cookies['token'];
-  const user = await collection.findOne({ token: authToken });
-  if (user) {
-    res.send({ username: user.username });
-    return;
-  }
-  res.status(401).send({ msg: 'Unauthorized' });
-});
+// // getMe for the currently authenticated user
+// app.get('/user/me', async (req, res) => {
+//   authToken = req.cookies['token'];
+//   const user = await collection.findOne({ token: authToken });
+//   if (user) {
+//     res.send({ username: user.username });
+//     return;
+//   }
+//   res.status(401).send({ msg: 'Unauthorized' });
+// });
 
-function getUser(username) {
-  return collection.findOne({ username: username });
-}
+// function getUser(username) {
+//   return collection.findOne({ username: username });
+// }
 
-async function createUser(username, password, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
-  const passwordHash = await bcrypt.hash(password, 10);
-  const user = {
-    username: username,
-    password: passwordHash,
-    firstName: firstName,
-    lastName: lastName,
-    missionArea: missionArea, 
-    startDate: startDate,
-    endDate: endDate,
-    phoneNumber: phoneNumber,
-    prefix: prefix,
-    token: uuid.v4()
-  };
-  await collection.insertOne(user);
+// async function createUser(username, password, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
+//   const passwordHash = await bcrypt.hash(password, 10);
+//   const user = {
+//     username: username,
+//     password: passwordHash,
+//     firstName: firstName,
+//     lastName: lastName,
+//     missionArea: missionArea, 
+//     startDate: startDate,
+//     endDate: endDate,
+//     phoneNumber: phoneNumber,
+//     prefix: prefix,
+//     token: uuid.v4()
+//   };
+//   await collection.insertOne(user);
 
-  return user;
-}
+//   return user;
+// }
 
-function setAuthCookie(res, authToken) {
-  res.cookie('token', authToken, {
-    secure: true,
-    httpOnly: true,
-    sameSite: 'strict',
-  });
-}
+// function setAuthCookie(res, authToken) {
+//   res.cookie('token', authToken, {
+//     secure: true,
+//     httpOnly: true,
+//     sameSite: 'strict',
+//   });
+// }
 
 
 // Return the application's default page if the path is unknown
