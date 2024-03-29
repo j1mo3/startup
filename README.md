@@ -77,7 +77,7 @@ For this deliverable I added backend endpoints that receives posts, returns all 
 - **Node.js/Express HTTP service** - done!
 - **Static middleware for frontend** - done!
 - **Calls to third party endpoints** - I use the restcountries third party API to get information about the area. This will be displayed on the homescreen as soon as my placeholder for the backend can actually retrive information from the database.
-- **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post.
+- **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post. End points are specifically api/account, api/posts, and https://restcountries.com 
 - **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area.
 
 ## DB/Login deliverable
