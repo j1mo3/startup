@@ -15,7 +15,7 @@ app.use('/api', apiRouter);
 
 //get
 apiRouter.get('/account/:username', async (_req, res) => {
-  //const account = await DB.getAccount(_req.username);
+  //const account = await DB.getAccount(_req.params.username);
   account = {'username': 'jimothy', 'prefix': 'Elder', 'firstName': 'James', 'lastName': 'Wilson', 'area': 'Tennessee Knoxville Mission', 'serviceStart': '06-03-2024', 'serviceEnd': '06-03-2026'};
   res.send(account);
 });
@@ -23,7 +23,7 @@ apiRouter.get('/posts/:discussion', async (_req, res) => {
   //const posts = await DB.getPosts(_req.params.discussion);
   //account_id is username
   sample_post = {'account_id': 'jimothy', 'date': '03-28-2024', 'text': 'This is a sample post text'};
-  posts = [sample_post];
+  posts = [sample_post, sample_post];
   res.send(posts);
 });
 
@@ -31,16 +31,14 @@ apiRouter.get('/posts/:discussion', async (_req, res) => {
 apiRouter.post('/post', async (req, res) => {
   //DB.addPost(req.username, req.date, req.service_date, req.text, req.discussion);
   //const posts = await DB.getPosts(req.discussion);
+  sample_post = {'account_id': 'jimothy', 'date': '03-28-2024', 'text': 'This is a sample post text created with the API'};
   res.send(posts);
 });
 apiRouter.post('/updateAccount', async (req, res) => {
   //DB.updateAccount(req.username);
   //const account = await DB.getAccount();
+  account = {'username': 'jimothy', 'prefix': 'Elder', 'firstName': 'James', 'lastName': 'Wilson', 'area': 'Tennessee Knoxville Mission', 'serviceStart': '06-03-2024', 'serviceEnd': '06-03-2026'};
   res.send(account);
-});
-
-app.get('/store/:storeName', (req, res, next) => {
-  res.send({name: req.params.storeName});
 });
 
 //login service
@@ -57,60 +55,60 @@ app.post('/auth/create', async (req, res) => {
   }
 });
 
-// // loginAuthorization from the given credentials
-// app.post('/auth/login', async (req, res) => {
-//   const user = await getUser(req.body.username);
-//   if (user) {
-//     if (await bcrypt.compare(req.body.password, user.password)) {
-//       setAuthCookie(res, user.token);
-//       res.send({ id: user._id });
-//       return;
-//     }
-//   }
-//   res.status(401).send({ msg: 'Unauthorized' });
-// });
+// loginAuthorization from the given credentials
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.username);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
 
-// // getMe for the currently authenticated user
-// app.get('/user/me', async (req, res) => {
-//   authToken = req.cookies['token'];
-//   const user = await collection.findOne({ token: authToken });
-//   if (user) {
-//     res.send({ username: user.username });
-//     return;
-//   }
-//   res.status(401).send({ msg: 'Unauthorized' });
-// });
+// getMe for the currently authenticated user
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ username: user.username });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
 
-// function getUser(username) {
-//   return collection.findOne({ username: username });
-// }
+function getUser(username) {
+  return collection.findOne({ username: username });
+}
 
-// async function createUser(username, password, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
-//   const passwordHash = await bcrypt.hash(password, 10);
-//   const user = {
-//     username: username,
-//     password: passwordHash,
-//     firstName: firstName,
-//     lastName: lastName,
-//     missionArea: missionArea, 
-//     startDate: startDate,
-//     endDate: endDate,
-//     phoneNumber: phoneNumber,
-//     prefix: prefix,
-//     token: uuid.v4()
-//   };
-//   await collection.insertOne(user);
+async function createUser(username, password, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = {
+    username: username,
+    password: passwordHash,
+    firstName: firstName,
+    lastName: lastName,
+    missionArea: missionArea, 
+    startDate: startDate,
+    endDate: endDate,
+    phoneNumber: phoneNumber,
+    prefix: prefix,
+    token: uuid.v4()
+  };
+  await collection.insertOne(user);
 
-//   return user;
-// }
+  return user;
+}
 
-// function setAuthCookie(res, authToken) {
-//   res.cookie('token', authToken, {
-//     secure: true,
-//     httpOnly: true,
-//     sameSite: 'strict',
-//   });
-// }
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
 
 
 // Return the application's default page if the path is unknown

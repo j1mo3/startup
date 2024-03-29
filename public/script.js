@@ -86,10 +86,8 @@ function signUp(parentSelector){
         return false; 
     }
 
-    console.log(start_date.value)
     startDate = new Date(start_date.value)
     endDate = new Date(end_date.value)
-    console.log(startDate)
 
     if (startDate > endDate) {
         const newChild = document.createElement('p');
@@ -130,12 +128,8 @@ async function getCountry() {
 
 async function missionary_type(start_date, end_date) {
     today = new Date();
-    console.log(start_date);
-    console.log(end_date);
     start_date = new Date(start_date);
     end_date = new Date(end_date);
-    console.log(start_date);
-    console.log(end_date);
 
     if (end_date < today) {
         return "Service ended " + end_date.toDateString();
@@ -149,14 +143,14 @@ async function missionary_type(start_date, end_date) {
 }
 
 async function getPosts(discussion) {
-    const response = await fetch(`/api/posts/${discussion}`);
+    response = await fetch(`/api/posts/${discussion}`);
     posts = await response.json();
     for (let i = 0; i < posts.length; i++) {
         _post = posts[i];
-        _account = await fetch(`/api/account/${_post['account_id']}`);
-        console.log(`account ${_account['prefix']}`)
+        res = await fetch(`/api/account/${_post['account_id']}`);
+        _account = await res.json();
         // buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text']);
-        buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['serviceStart'], _account['serviceEnd'], _post['date'], _post['text']);
+        await buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['serviceStart'], _account['serviceEnd'], _post['date'], _post['text']);
     }
 }
 
@@ -204,7 +198,6 @@ function buildPost(parent, prefix, firstName, lastName, service_start, service_e
     service_start_h5.classList.add('service-start');
     missionary_type(service_start, service_end).then(
         (m_type) => {
-            console.log(`m-type: ${m_type}`)
             service_start_h5.textContent = m_type;
             name_info_div.appendChild(service_start_h5);
         }
@@ -285,7 +278,6 @@ async function displayQuote(country, object) {
     fetch(`https://restcountries.com/v3.1/name/${country}`)
         .then((response) => response.json())
         .then((jsonResponse) => {
-          console.log(jsonResponse);
           var subregion = jsonResponse[0].subregion;
           var capital = jsonResponse[0].capital[0];
           var border_num = (jsonResponse[0].borders).length;
