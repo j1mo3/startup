@@ -140,20 +140,36 @@
 <script>
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
-    document.getElementById("area").textContent = getArea();
+    missionArea = document.getElementById("area")
+    getArea().then(
+        (area) => {
+            missionArea.textContent = area;
+        }
+    )
     //document.getElementById("description").textContent = getCityInformation(document.getElementById("description").textContent);
     
     displayNames = document.getElementsByClassName("display-name");
-    for (let i = 0; i < displayNames.length; i++) {
-        displayNames[i].textContent = getName();
-    }
+    getName().then(
+        (name) => {
+            for (let i = 0; i < displayNames.length; i++) {
+                displayNames[i].textContent = name;
+            }
+        }
+    )
+        //displayNames[i].textContent = await getName();
 
     todayDate = document.getElementsByClassName("today-date");
     for (let i = 0; i < todayDate.length; i++) {
         todayDate[i].textContent = new Date().toDateString();
     }
 
-    displayQuote(getArea(), 'description');
-    getPosts();
+    getCountry().then(
+        (country) => {
+            displayQuote(country, 'description');
+        }
+    )
+    
+
+    getPosts()
 </script>
 </html>

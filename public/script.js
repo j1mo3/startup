@@ -121,20 +121,21 @@ async function getName() {
     return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
 }
 
-async function getArea() {
+async function getCountry() {
     return 'USA';
     const response = await fetch(`/api/account?username=${username}`);
     account = await response.json();
     return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
 }
 
-async function missionary_type(username) {
-    const response = await fetch(`/api/account?username=${username}`);
-    account = await response.json();
-
-    today = new Date()
-    start_date = new Date(account['start_date'])
-    end_date = new Date(account['end_date'])
+async function missionary_type(start_date, end_date) {
+    today = new Date();
+    console.log(start_date);
+    console.log(end_date);
+    start_date = new Date(start_date);
+    end_date = new Date(end_date);
+    console.log(start_date);
+    console.log(end_date);
 
     if (end_date < today) {
         return "Service ended " + end_date.toDateString();
@@ -148,15 +149,18 @@ async function missionary_type(username) {
 }
 
 async function getPosts(discussion) {
-    const response = await fetch(`/api/posts?discussion=${discussion}`);
+    const response = await fetch(`/api/posts/${discussion}`);
     posts = await response.json();
     for (let i = 0; i < posts.length; i++) {
         _post = posts[i];
-        buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text'])
+        _account = await fetch(`/api/account/${_post['account_id']}`);
+        console.log(`account ${_account['prefix']}`)
+        // buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text']);
+        buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['serviceStart'], _account['serviceEnd'], _post['date'], _post['text']);
     }
 }
 
-function buildPost(parent, prefix, name, service_start, service_end, date, text) {
+function buildPost(parent, prefix, firstName, lastName, service_start, service_end, date, text) {
     post_div = document.createElement('div');
     post_div.classList.add('post');
     parentElement = document.querySelector(parent);
@@ -192,14 +196,20 @@ function buildPost(parent, prefix, name, service_start, service_end, date, text)
 
     name_h3 = document.createElement('h3');
     name_h3.classList.add('name');
-    name_h3.onclick = sendEmail();
-    name_h3.textContent = prefix + ' ' + name
+    //name_h3.onclick = sendEmail();
+    name_h3.textContent = `${prefix} ${firstName} ${lastName}`
     name_info_div.appendChild(name_h3);
 
     service_start_h5 = document.createElement('h5');
     service_start_h5.classList.add('service-start');
-    service_start_h5.textContent = missionary_type(service_start, service_end);
-    name_info_div.appendChild(service_start_h5);
+    missionary_type(service_start, service_end).then(
+        (m_type) => {
+            console.log(`m-type: ${m_type}`)
+            service_start_h5.textContent = m_type;
+            name_info_div.appendChild(service_start_h5);
+        }
+    )
+    
 
     comment_text_p = document.createElement('p');
     comment_text_p.classList.add('comment-text');
@@ -258,7 +268,7 @@ async function makePost(discussion, username, input) {
 
 async function getArea(username) {
     //this will eventually grab from database/local storage
-    const response = await fetch(`/api/account?username=${username}`);
+    const response = await fetch(`/api/account/${username}`);
     account = await response.json();
     return account['area'];
 }
@@ -283,7 +293,7 @@ async function displayQuote(country, object) {
           const containerEl = document.querySelector(`#${object}`);
           containerEl.textContent = sentence;
         });
-  }
+    }
 
 
 
