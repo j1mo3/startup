@@ -1,10 +1,4 @@
-//discussion name to id dictionary
-discussion_to_ids = {
-    "introductions": "#introduce-yourself-discussion",
-    "main": "#discussion-tab-discussion",
-    "ask": "#ask-an-rm-discussion",
-    "inspiration": "#inspiration-advice-discussion"
-}
+const { response } = require("express");
 
 function tabs(evt, tab_name){
     // Declare all variables
@@ -28,7 +22,7 @@ function tabs(evt, tab_name){
     evt.currentTarget.className += " active";
 }
 
-function login(parentSelector){
+function login(parentSelector) {
     //add login api when I get there
 
     // add check to make sure login is correct
@@ -143,18 +137,48 @@ async function missionary_type(start_date, end_date) {
 }
 
 async function getPosts(discussion) {
-    response = await fetch(`/api/posts/${discussion}`);
+    //discussion name to id dictionary
+    discussion_to_ids = {
+        "introductions": "#introduce-yourself-discussion",
+        "main": "#discussion-tab-discussion",
+        "ask": "#ask-an-rm-discussion",
+        "inspiration": "#inspiration-advice-discussion"
+    };
+
+    clearPosts(discussion);
+
+    const response = await fetch(`/api/posts/${discussion}`);
     posts = await response.json();
+    console.log(posts);
+    
     for (let i = 0; i < posts.length; i++) {
         _post = posts[i];
         res = await fetch(`/api/account/${_post['username']}`);
-        console.log(res);
         _account = await res.json();
+
+        
         // buildPost(discussion_to_ids[discussion], _post['prefix'], _post['name'], _post['service_start'], _post['service_end'], _post['date'], _post['text']);
-        await buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['serviceStart'], _account['serviceEnd'], _post['date'], _post['text']);
+        await buildPost(discussion_to_ids[discussion], _account['prefix'], _account['firstName'], _account['lastName'], _account['startDate'], _account['endDate'], _post['date'], _post['text']);
     }
 }
 
+function clearPosts(discussion) {
+    discussion_to_ids = {
+        "introductions": "#introduce-yourself-discussion",
+        "main": "#discussion-tab-discussion",
+        "ask": "#ask-an-rm-discussion",
+        "inspiration": "#inspiration-advice-discussion"
+    };
+
+    const divId = discussion_to_ids[discussion];
+    const div = document.querySelector(divId);
+
+    if (div) {
+        div.innerHTML = '';
+    }
+}
+
+//build a post on the front end
 function buildPost(parent, prefix, firstName, lastName, service_start, service_end, date, text) {
     post_div = document.createElement('div');
     post_div.classList.add('post');
@@ -237,23 +261,24 @@ async function makePost(discussion, username, input) {
 
     // response = await fetch(`/api/account/${username}`);
     // account = await response.json();
-
     postInformation = {
-        dicussion: discussion_to_ids[discussion],
+        discussion: discussion,
         username: username,
         date: new Date().toDateString(),
         text: text
-    }
+    };
 
-    response = await fetch('/api/post', {
+    const response = await fetch('/api/post', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(postInformation)
     });
-
+    //c = await response.json();
+    console.log(response);
+    
     await getPosts(discussion)
     //reset text box
-    post_input.value = ''
+    post_input.value = '';
 }
 
 
@@ -261,7 +286,7 @@ async function getArea(username) {
     //this will eventually grab from database/local storage
     const response = await fetch(`/api/account/${username}`);
     account = await response.json();
-    return account['area'];
+    return account['missionArea'];
 }
 
 

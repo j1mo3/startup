@@ -25,16 +25,17 @@ apiRouter.get('/posts/:discussion', async (_req, res) => {
 
 // post
 apiRouter.post('/post', async (req, res) => {
-  const { discussion, username, date, text } = req.body;
-  await DB.createPost(discussion, username, date, text);
+  info = { ...req.body};
+  await DB.createPost(info["discussion"], info["username"], info["date"], info["text"]);
   res.status(201).send("Post created");
 });
 
 apiRouter.post('/createAccount', async (req, res) => {
-  const { username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix } = req.body;
-  await DB.createAccount(username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix);
+  //const { username, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix } = req.body;
+  info = { ...req.body};
+  await DB.createAccount(info["username"], info["firstName"], info["lastName"], info["missionArea"], info["startDate"], info["endDate"], info["phoneNumber"], info["prefix"]);
   res.status(201).send("Account created");
-  res.send(account);
+  //res.send(account);
 });
 
 //login service

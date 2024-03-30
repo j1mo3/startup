@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <textarea type="text" id="write-post1" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="post('#introduce-yourself-discussion', '#write-post1')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('introductions', 'j1m03', '#write-post1')">Post</button>                 
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <textarea type="text" id="write-post2" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="post('#discussion-tab-discussion', '#write-post2')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('main', 'j1m03', '#write-post2')">Post</button>                 
                 </div>
             </div>
 
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <textarea type="text" id="write-post3" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="post('#ask-an-rm-discussion', '#write-post3')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('ask', 'j1m03', '#write-post3')">Post</button>                 
                 </div>
             </div>
 
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <textarea type="text" id="write-post4" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="post('#inspiration-advice-discussion', '#write-post4')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('inspiration', 'j1m03', '#write-post4')">Post</button>                 
                 </div>
             </div>
 
@@ -141,7 +141,7 @@
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
     missionArea = document.getElementById("area")
-    getArea().then(
+    getArea("j1m03").then(
         (area) => {
             missionArea.textContent = area;
         }
@@ -169,7 +169,5 @@
         }
     )
     
-
-    getPosts()
 </script>
 </html>

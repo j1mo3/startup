@@ -31,13 +31,13 @@ async function getPosts(discussion) {
   };
   const cursor = postCollection.find(query, options);
   c = await cursor.toArray();
-  return cursor.toArray();
+  return c;
 }
 
 async function getAccount(username) {
   query = { username: username };
-  accountInfo = accounts.find(query);
-  a = await accountInfo.toArray();
+  accountInfo = await accounts.findOne(query);
+  //a = await accountInfo.toArray();
   return accountInfo;
 }
 
