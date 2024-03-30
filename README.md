@@ -93,6 +93,7 @@ For this deliverable I associate the posts with the logged in user. Users can lo
 
 ## Websocket Deliverable
 For this deliverable I used webSocket to update the posts on the frontend in realtime.
+HEADS UP! I wanted to submit this on time but it's not quite working yet!
 
 - **Backend listens for WebSocket connection** - done!
 - **Frontend makes WebSocket connection** - done!
