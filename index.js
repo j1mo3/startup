@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 const bcrypt = require('bcrypt');
-//const peerProxy = require('./peerProxy.js');
+const { peerProxy } = require('./peerProxy.js');
 //const { peerProxy } = require('./peerProxy.js');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
@@ -51,7 +51,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   } else {
     //create account
     const user = await DB.createAccount(body["username"], body["firstName"], body["lastName"], body["missionArea"], body["startDate"], body["endDate"], body["phoneNumber"], body["prefix"]);
-    //setAuthCookie(res, user.token);
+    setAuthCookie(res, body["username"]);
 
     //create login
     const userLogin = await DB.createLogin(body['username'], body['password']);
@@ -73,6 +73,7 @@ apiRouter.post('/auth/login', async (req, res) => {
       const passwordMatch = await bcrypt.compare(body['password'], user['password']);
       if (passwordMatch) {
         //res.status(200).send({ id: user._id });
+        setAuthCookie(res, body['username']);
         res.status(200).send({ username: body['username'] });
         return;
       }
@@ -87,15 +88,15 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 // getMe for the currently authenticated user
 apiRouter.get('/user/me', async (req, res) => {
-  authToken = req.cookies['token'];
-  const user = await collection.findOne({ token: authToken });
+  authToken = req.cookies['username'];
+  const user = await collection.findOne({ username: authToken });
   if (user) {
+    //setAuthCookie(res, authToken);
     res.send({ username: user.username });
     return;
   }
   res.status(401).send({ msg: 'Unauthorized' });
 });
-
 
 function setAuthCookie(res, authToken) {
   res.cookie('token', authToken, {
@@ -115,4 +116,4 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-//peerProxy(httpService);
+peerProxy(httpService);
