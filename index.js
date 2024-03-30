@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const bcrypt = require('bcrypt');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -38,74 +39,69 @@ apiRouter.post('/createAccount', async (req, res) => {
   //res.send(account);
 });
 
+
+
 //login service
 // createAuthorization from the given credentials
-// app.post('/auth/create', async (req, res) => {
-//   if (await getUser(req.body.email)) {
-//     res.status(409).send({ msg: 'Existing user' });
-//   } else {
-//     const user = await createUser(req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.mission, req.body.startDate, req.body.endDate, req.body.phoneNumber, req.body.prefix);
-//     setAuthCookie(res, user.token);
-//     res.send({
-//       id: user._id,
-//     });
-//   }
-// });
+apiRouter.post('/auth/create', async (req, res) => {
+  body = { ...req.body};
+  
+  if (await DB.getAccount(req.body['username'])) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    //create account
+    const user = await DB.createAccount(body["username"], body["firstName"], body["lastName"], body["missionArea"], body["startDate"], body["endDate"], body["phoneNumber"], body["prefix"]);
+    setAuthCookie(res, user.token);
 
-// // loginAuthorization from the given credentials
-// app.post('/auth/login', async (req, res) => {
-//   const user = await getUser(req.body.username);
-//   if (user) {
-//     if (await bcrypt.compare(req.body.password, user.password)) {
-//       setAuthCookie(res, user.token);
-//       res.send({ id: user._id });
-//       return;
-//     }
-//   }
-//   res.status(401).send({ msg: 'Unauthorized' });
-// });
+    //create login
+    const userLogin = await DB.createLogin(body['username'], body['password']);
 
-// // getMe for the currently authenticated user
-// app.get('/user/me', async (req, res) => {
-//   authToken = req.cookies['token'];
-//   const user = await collection.findOne({ token: authToken });
-//   if (user) {
-//     res.send({ username: user.username });
-//     return;
-//   }
-//   res.status(401).send({ msg: 'Unauthorized' });
-// });
+    res.send({
+      id: user._id,
+    }); 
+  }
+});
 
-// function getUser(username) {
-//   return collection.findOne({ username: username });
-// }
+// loginAuthorization from the given credentials
+apiRouter.post('/auth/login', async (req, res) => {
+  body = { ...req.body};
 
-// async function createUser(username, password, firstName, lastName, missionArea, startDate, endDate, phoneNumber, prefix) {
-//   const passwordHash = await bcrypt.hash(password, 10);
-//   const user = {
-//     username: username,
-//     password: passwordHash,
-//     firstName: firstName,
-//     lastName: lastName,
-//     missionArea: missionArea, 
-//     startDate: startDate,
-//     endDate: endDate,
-//     phoneNumber: phoneNumber,
-//     prefix: prefix,
-//     token: uuid.v4()
-//   };
-//   await collection.insertOne(user);
+  const user = await DB.getLogin(body['username']);
+  console.log(user);
+  if (user) {
+    const passwordHash = await bcrypt.hash(user['password'], 10);
+    console.log(passwordHash);
+    const passwordMatch = await bcrypt.compare(user['password'], body['password']);
+    if (passwordMatch) {
+      console.log('Success I think')
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  console.log('Uhhhh');
+  res.status(401).send({ msg: 'Unauthorized' });
+});
 
-//   return user;
-// }
+// getMe for the currently authenticated user
+apiRouter.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ username: user.username });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
 
-// function setAuthCookie(res, authToken) {
-//   res.cookie('token', authToken, {
-//     secure: true,
-//     httpOnly: true,
-//     sameSite: 'strict',
-//   });
-// }
+
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
 
 
 // Return the application's default page if the path is unknown

@@ -22,7 +22,7 @@ function tabs(evt, tab_name){
     evt.currentTarget.className += " active";
 }
 
-function login(parentSelector) {
+async function login(parentSelector) {
     //add login api when I get there
 
     // add check to make sure login is correct
@@ -43,12 +43,23 @@ function login(parentSelector) {
         return false; 
     }
 
+    postInformation = {
+        username: username.value,
+        password: password.value
+    };
+
+    const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(postInformation)
+    });
+
     localStorage.setItem("username", username.value);
     localStorage.setItem("password", password.value);
-    window.location.href = "home.html";
+    //window.location.href = "home.html";
 }
 
-function signUp(parentSelector){
+async function signUp(parentSelector){
     //add api steps
     
     // add check to make sure login is correct
@@ -91,6 +102,38 @@ function signUp(parentSelector){
         parentElement.appendChild(newChild);  
         return false; 
     }
+
+    const user = await DB.createAccount(body["username"], body["firstName"], body["lastName"], body["missionArea"], body["startDate"], body["endDate"], body["phoneNumber"], body["prefix"]);
+
+    accountInformation = {
+        username: username.value,
+        firstName: first_name.value,
+        lastName: last_name.value,
+        missionArea: mission_area.value,
+        startDate: start_date.value,
+        endDate: end_date.value,
+        phoneNumber: phone_number.value,
+        prefix: gender.value
+    };
+
+    loginInformation = {
+        username: username.value,
+        password: password.value
+    }
+
+    const account_response = await fetch('/api/post', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(accountInformation)
+    });
+    console.log(account_response);
+    const login_response = await fetch('/api/post', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(loginInformation)
+    });
+    console.log(login_response);
+
 
     localStorage.setItem("username", username.value);
     localStorage.setItem("password", password.value);

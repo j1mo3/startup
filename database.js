@@ -9,7 +9,7 @@ const client = new MongoClient(url);
 const db = client.db('missionaryConnect');
 const postCollection = db.collection('posts');
 const accounts = db.collection('accounts');
-const logins = db.collections('login');
+const logins = db.collection('login');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -37,7 +37,12 @@ async function getPosts(discussion) {
 async function getAccount(username) {
   query = { username: username };
   accountInfo = await accounts.findOne(query);
-  //a = await accountInfo.toArray();
+  return accountInfo;
+}
+
+async function getLogin(username) {
+  query = { username: username };
+  accountInfo = await logins.findOne(query);
   return accountInfo;
 }
 
@@ -57,12 +62,14 @@ async function createAccount(username, firstName, lastName, missionArea, startDa
 }
 
 async function createLogin(username, password) {
-  //adds login/password to database
-  const login = {
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = {
     username: username,
-    password: password
+    password: passwordHash,
+    //token: uuid.v4()
   };
-  await logins.insertOne(login);
+  await collection.insertOne(user);
+  return user;
 }
 
 
@@ -81,4 +88,4 @@ async function updateAccount() {
 
 }
 
-module.exports = { getPosts, getAccount, createAccount, createLogin, createPost };
+module.exports = { getPosts, getAccount, createAccount, createLogin, createPost, getLogin };
