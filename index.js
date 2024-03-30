@@ -51,14 +51,15 @@ apiRouter.post('/auth/create', async (req, res) => {
   } else {
     //create account
     const user = await DB.createAccount(body["username"], body["firstName"], body["lastName"], body["missionArea"], body["startDate"], body["endDate"], body["phoneNumber"], body["prefix"]);
-    setAuthCookie(res, user.token);
+    //setAuthCookie(res, user.token);
 
     //create login
     const userLogin = await DB.createLogin(body['username'], body['password']);
-
-    res.send({
-      id: user._id,
-    }); 
+    console.log('Boom baby');
+    res.status(409).send({username: body['username']});
+    // res.send({
+    //   id: user._id,
+    // });
   }
 });
 
@@ -74,7 +75,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     const passwordMatch = await bcrypt.compare(user['password'], body['password']);
     if (passwordMatch) {
       console.log('Success I think')
-      setAuthCookie(res, user.token);
+      //setAuthCookie(res, user.token);
       res.send({ id: user._id });
       return;
     }

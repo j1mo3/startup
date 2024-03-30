@@ -1,4 +1,4 @@
-const { response } = require("express");
+//const { response } = require("express");
 
 function tabs(evt, tab_name){
     // Declare all variables
@@ -74,7 +74,7 @@ async function signUp(parentSelector){
     const start_date = document.querySelector("#start-date");
     const end_date = document.querySelector("#end-date");
     const phone_number = document.querySelector("#phone-number");
-    const gender = document.querySelector('.radio-flex')
+    const gender = document.querySelector('.radio-flex');
     
     try {
         document.querySelector(parentSelector).innerHTML = "";
@@ -103,10 +103,9 @@ async function signUp(parentSelector){
         return false; 
     }
 
-    const user = await DB.createAccount(body["username"], body["firstName"], body["lastName"], body["missionArea"], body["startDate"], body["endDate"], body["phoneNumber"], body["prefix"]);
-
     accountInformation = {
         username: username.value,
+        password: password.value,
         firstName: first_name.value,
         lastName: last_name.value,
         missionArea: mission_area.value,
@@ -116,37 +115,29 @@ async function signUp(parentSelector){
         prefix: gender.value
     };
 
-    loginInformation = {
-        username: username.value,
-        password: password.value
-    }
-
-    const account_response = await fetch('/api/post', {
+    const response = await fetch('/api/auth/create', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(accountInformation)
     });
-    console.log(account_response);
-    const login_response = await fetch('/api/post', {
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify(loginInformation)
-    });
-    console.log(login_response);
+    account = await response.json();
+    console.log(account);
 
+    if (account['username'] !== null) {
+        localStorage.setItem("username", username.value);
+        localStorage.setItem("password", password.value);
 
-    localStorage.setItem("username", username.value);
-    localStorage.setItem("password", password.value);
+        localStorage.setItem("first-name", first_name.value);
+        localStorage.setItem("last-name", last_name.value);
+        localStorage.setItem("mission-area", mission_area.value);
+        localStorage.setItem("start-date", start_date.value);
+        localStorage.setItem("end-date", end_date.value);
+        localStorage.setItem("phone-number", phone_number.value);
+        localStorage.setItem("gender", gender.value);
 
-    localStorage.setItem("first-name", first_name.value);
-    localStorage.setItem("last-name", last_name.value);
-    localStorage.setItem("mission-area", mission_area.value);
-    localStorage.setItem("start-date", start_date.value);
-    localStorage.setItem("end-date", end_date.value);
-    localStorage.setItem("phone-number", phone_number.value);
-    localStorage.setItem("gender", gender.value);
-
-    window.location.href = "home.html";
+        window.location.href = "home.html";
+    }
+    
 }
 
 async function getName() {

@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
 
 //mongodb+srv://jdubs:<password>@cluster0.dadcgqt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 //"hostname": "cluster0.dadcgqt.mongodb.net",
@@ -68,7 +69,7 @@ async function createLogin(username, password) {
     password: passwordHash,
     //token: uuid.v4()
   };
-  await collection.insertOne(user);
+  await logins.insertOne(user);
   return user;
 }
 
