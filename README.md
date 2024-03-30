@@ -90,3 +90,11 @@ For this deliverable I associate the posts with the logged in user. Users can lo
 - **existing user** - Stores information of existing user. User can make posts and view posts. Posts contain user data. 
 - **Use MongoDB to store credentials** - Stores both users and posts. Credentials can be changed under edit profile.
 - **Restricts functionality** - You cannot view or write posts until you have logged in.
+
+## Websocket Deliverable
+For this deliverable I used webSocket to update the posts on the frontend in realtime.
+
+- **Backend listens for WebSocket connection** - done!
+- **Frontend makes WebSocket connection** - done!
+- **Data sent over WebSocket connection** - done!
+WebSocket data displayed - All user votes display in realtime. I'm really proud that this is working. Way cool!
