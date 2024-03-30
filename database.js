@@ -27,10 +27,7 @@ async function getPosts(discussion) {
   startDate.setDate(startDate.getDate() - 60);
 
   const query = { discussion: discussion };
-  const options = {
-    sort: { date: -1 },
-  };
-  const cursor = postCollection.find(query, options);
+  const cursor = postCollection.find(query);
   c = await cursor.toArray();
   return c;
 }

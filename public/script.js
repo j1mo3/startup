@@ -53,10 +53,15 @@ async function login(parentSelector) {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(postInformation)
     });
-
-    localStorage.setItem("username", username.value);
-    localStorage.setItem("password", password.value);
-    //window.location.href = "home.html";
+    
+    if (response.ok) {
+        const responseData = await response.json();
+        localStorage.setItem("username", responseData['username']);
+        window.location.href = "home.html";
+    } else {
+        console.error('Error:', response.statusText);
+    }
+    
 }
 
 async function signUp(parentSelector){

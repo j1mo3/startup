@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 const bcrypt = require('bcrypt');
+//const peerProxy = require('./peerProxy.js');
+//const { peerProxy } = require('./peerProxy.js');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -39,8 +41,6 @@ apiRouter.post('/createAccount', async (req, res) => {
   //res.send(account);
 });
 
-
-
 //login service
 // createAuthorization from the given credentials
 apiRouter.post('/auth/create', async (req, res) => {
@@ -67,21 +67,22 @@ apiRouter.post('/auth/create', async (req, res) => {
 apiRouter.post('/auth/login', async (req, res) => {
   body = { ...req.body};
 
-  const user = await DB.getLogin(body['username']);
-  console.log(user);
-  if (user) {
-    const passwordHash = await bcrypt.hash(user['password'], 10);
-    console.log(passwordHash);
-    const passwordMatch = await bcrypt.compare(user['password'], body['password']);
-    if (passwordMatch) {
-      console.log('Success I think')
-      //setAuthCookie(res, user.token);
-      res.send({ id: user._id });
-      return;
+  try {
+    const user = await DB.getLogin(body['username']);
+    if (user) {
+      const passwordMatch = await bcrypt.compare(body['password'], user['password']);
+      if (passwordMatch) {
+        //res.status(200).send({ id: user._id });
+        res.status(200).send({ username: body['username'] });
+        return;
+      }
     }
-  }
-  console.log('Uhhhh');
-  res.status(401).send({ msg: 'Unauthorized' });
+    console.log('Invalid username or password');
+    res.status(401).send({ msg: 'Unauthorized' });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send({ msg: 'Internal Server Error' });
+  };
 });
 
 // getMe for the currently authenticated user
@@ -113,3 +114,5 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+//peerProxy(httpService);
