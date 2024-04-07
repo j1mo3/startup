@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 const bcrypt = require('bcrypt');
-const { peerProxy } = require('./peerProxy.js');
+const cookieParser = require('cookie-parser');
+// const { peerProxy } = require('./peerProxy.js');
 //const { peerProxy } = require('./peerProxy.js');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
@@ -12,6 +13,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 app.use(express.json());
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
+app.use(cookieParser());
 // Router for service endpoints
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
@@ -73,6 +75,7 @@ apiRouter.post('/auth/login', async (req, res) => {
       const passwordMatch = await bcrypt.compare(body['password'], user['password']);
       if (passwordMatch) {
         //res.status(200).send({ id: user._id });
+        console.log(body['username']);
         setAuthCookie(res, body['username']);
         res.status(200).send({ username: body['username'] });
         return;
@@ -87,16 +90,21 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 // getMe for the currently authenticated user
-apiRouter.get('/user/me', async (req, res) => {
-  authToken = req.cookies['username'];
-  const user = await collection.findOne({ username: authToken });
-  if (user) {
-    //setAuthCookie(res, authToken);
-    res.send({ username: user.username });
-    return;
-  }
-  res.status(401).send({ msg: 'Unauthorized' });
-});
+// apiRouter.get('/user/me', async (req, res) => {
+//   //try {
+//     authToken = req.cookies['username'];
+//     console.log(authToken);
+//     const user = await collection.findOne({ username: authToken });
+//     if (user) {
+//       //setAuthCookie(res, authToken);
+//       res.send({ username: user.username });
+//       return;
+//     }
+//     res.status(401).send({ msg: 'Unauthorized' });
+//   // } catch {
+//   //   console.log('Something went wrong')
+//   // };
+// });
 
 function setAuthCookie(res, authToken) {
   res.cookie('token', authToken, {
@@ -105,7 +113,6 @@ function setAuthCookie(res, authToken) {
     sameSite: 'strict',
   });
 }
-
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -116,4 +123,4 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-peerProxy(httpService);
+// peerProxy(httpService);

@@ -130,16 +130,6 @@ async function signUp(parentSelector){
 
     if (account['username'] !== null) {
         localStorage.setItem("username", username.value);
-        localStorage.setItem("password", password.value);
-
-        localStorage.setItem("first-name", first_name.value);
-        localStorage.setItem("last-name", last_name.value);
-        localStorage.setItem("mission-area", mission_area.value);
-        localStorage.setItem("start-date", start_date.value);
-        localStorage.setItem("end-date", end_date.value);
-        localStorage.setItem("phone-number", phone_number.value);
-        localStorage.setItem("gender", gender.value);
-
         window.location.href = "home.html";
     }
     
@@ -358,7 +348,8 @@ async function configureWebSocket() {
     socket.onmessage = async (event) => {
       const msg = JSON.parse(await event.data.text());
       //display post
-      displayMsg('player', msg.from, `scored ${msg.value.score}`);
+      //displayMsg('player', msg.from, `scored ${msg.value.score}`);
+      makePost();
     };
   }
   //this posts something to websocket which can then be distributed
