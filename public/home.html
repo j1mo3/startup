@@ -58,11 +58,11 @@
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
                             <h3 class="name display-name" onclick="sendEmail()"></h3>
-                            <h5 class="service-start">Service starts June 3rd</h5>
+                            <h5 class="service-start"></h5>
                         </div>
                     </div>
                     <textarea type="text" id="write-post1" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="makePost('introductions', 'j1m03', '#write-post1')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('introductions', '#write-post1')">Post</button>                 
                 </div>
             </div>
 
@@ -79,11 +79,11 @@
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
                             <h3 class="name display-name" onclick="sendEmail()"></h3>
-                            <h5 class="service-start">Service starts June 3rd</h5>
+                            <h5 class="service-start"></h5>
                         </div>
                     </div>
                     <textarea type="text" id="write-post2" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="makePost('main', 'j1m03', '#write-post2')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('main', '#write-post2')">Post</button>                 
                 </div>
             </div>
 
@@ -98,11 +98,11 @@
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
                             <h3 class="name display-name" onclick="sendEmail()"></h3>
-                            <h5 class="service-start">Service starts June 3rd</h5>
+                            <h5 class="service-start"></h5>
                         </div>
                     </div>
                     <textarea type="text" id="write-post3" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="makePost('ask', 'j1m03', '#write-post3')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('ask', '#write-post3')">Post</button>                 
                 </div>
             </div>
 
@@ -117,11 +117,11 @@
                         <div id="picture" class="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
                         <div class="name-info">
                             <h3 class="name display-name" onclick="sendEmail()"></h3>
-                            <h5 class="service-start">Service starts June 3rd</h5>
+                            <h5 class="service-start"></h5>
                         </div>
                     </div>
                     <textarea type="text" id="write-post4" placeholder="Say something..."></textarea>
-                    <button class="accent-button" onclick="makePost('inspiration', 'j1m03', '#write-post4')">Post</button>                 
+                    <button class="accent-button" onclick="makePost('inspiration', '#write-post4')">Post</button>                 
                 </div>
             </div>
 
@@ -141,7 +141,7 @@
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("introduce-yourself-button").click();
     missionArea = document.getElementById("area")
-    getArea("j1m03").then(
+    getArea().then(
         (area) => {
             missionArea.textContent = area;
         }
@@ -151,12 +151,22 @@
     displayNames = document.getElementsByClassName("display-name");
     getName().then(
         (name) => {
+            console.log(name);
             for (let i = 0; i < displayNames.length; i++) {
                 displayNames[i].textContent = name;
             }
         }
     )
-        //displayNames[i].textContent = await getName();
+
+    serviceDates = document.getElementsByClassName("service-start");
+    getDate().then(
+        (date) => {
+            console.log(name);
+            for (let i = 0; i < serviceDates.length; i++) {
+                serviceDates[i].textContent = date;
+            }
+        }
+    )
 
     todayDate = document.getElementsByClassName("today-date");
     for (let i = 0; i < todayDate.length; i++) {
@@ -168,6 +178,8 @@
             displayQuote(country, 'description');
         }
     )
+
+    configureWebSocket();
     
 </script>
 </html>

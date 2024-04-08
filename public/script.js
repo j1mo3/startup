@@ -135,18 +135,32 @@ async function signUp(parentSelector){
     
 }
 
+function getUsername() {
+    return localStorage.getItem('username');
+}
+
 async function getName() {
-    return 'James Wilson';
-    const response = await fetch(`/api/account?username=${username}`);
+    //return 'James Wilson';
+    u = getUsername();
+    const response = await fetch(`/api/account/${u}`);
     account = await response.json();
-    return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
+    return account['firstName'] + ' ' + account['lastName'];
+    //return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
+}
+
+async function getDate() {
+    u = getUsername();
+    const response = await fetch(`/api/account/${u}`);
+    account = await response.json();
+    text = await missionary_type(account['startDate'], account['endDate']);
+    return text;
 }
 
 async function getCountry() {
     return 'USA';
-    const response = await fetch(`/api/account?username=${username}`);
+    const response = await fetch(`/api/account?username=${getUsername()}`);
     account = await response.json();
-    return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
+    //return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
 }
 
 async function missionary_type(start_date, end_date) {
@@ -245,7 +259,8 @@ function buildPost(parent, prefix, firstName, lastName, service_start, service_e
     name_h3 = document.createElement('h3');
     name_h3.classList.add('name');
     //name_h3.onclick = sendEmail();
-    name_h3.textContent = `${prefix} ${firstName} ${lastName}`
+    //name_h3.textContent = `${prefix} ${firstName} ${lastName}`
+    name_h3.textContent = `${firstName} ${lastName}`
     name_info_div.appendChild(name_h3);
 
     service_start_h5 = document.createElement('h5');
@@ -284,12 +299,37 @@ function buildPost(parent, prefix, firstName, lastName, service_start, service_e
     add_comment_div.appendChild(img);
 }
 
-async function makePost(discussion, username, input) {
+async function makePost(discussion, input) {
+    // const post_input = document.querySelector(input);
+    // text = post_input.value.replace(/\r?\n/g, '<br>');
+
+    // username = getUsername();
+    // // response = await fetch(`/api/account/${username}`);
+    // // account = await response.json();
+    // postInformation = {
+    //     discussion: discussion,
+    //     username: username,
+    //     date: new Date().toDateString(),
+    //     text: text
+    // };
+
+    // const response = await fetch('/api/post', {
+    //     method: 'POST',
+    //     headers: {'content-type': 'application/json'},
+    //     body: JSON.stringify(postInformation)
+    // });
+    // //c = await response.json();
+    // console.log(response);
+    
+    // await getPosts(discussion)
+    // //reset text box
+    // post_input.value = '';
+
     const post_input = document.querySelector(input);
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
-    // response = await fetch(`/api/account/${username}`);
-    // account = await response.json();
+    username = getUsername();
+
     postInformation = {
         discussion: discussion,
         username: username,
@@ -302,19 +342,23 @@ async function makePost(discussion, username, input) {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(postInformation)
     });
-    //c = await response.json();
-    console.log(response);
-    
-    await getPosts(discussion)
+
     //reset text box
     post_input.value = '';
+
+    console.log('EEEE');
+    broadcastEvent(discussion, username, text);
 }
 
 
-async function getArea(username) {
+async function getArea() {
     //this will eventually grab from database/local storage
-    const response = await fetch(`/api/account/${username}`);
+    // const response = await fetch(`/api/account/${username}`);
+    // account = await response.json();
+    u = getUsername();
+    const response = await fetch(`/api/account/${u}`);
     account = await response.json();
+    console.log(account);
     return account['missionArea'];
 }
 
@@ -346,20 +390,24 @@ async function configureWebSocket() {
     socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
     
     socket.onmessage = async (event) => {
-      const msg = JSON.parse(await event.data.text());
+      //const msg = JSON.parse(await event.data.text());
       //display post
       //displayMsg('player', msg.from, `scored ${msg.value.score}`);
-      makePost();
+        const msg = JSON.parse(event.data);
+        const response = await fetch(`/api/account/${msg.username}`);
+        account = await response.json();
+        buildPost(msg.discussion, '', account['firstName'], account['lastName'], account['serviceStart'], account['serviceEnd'], msg.date, msg.text);
     };
   }
   //this posts something to websocket which can then be distributed
 async function broadcastEvent(discussion, username, text) {
     const event = {
-      from: from,
-      type: type,
-      value: value,
+      discussion: discussion,
+      username: username,
+      text: text,
+      date: new Date()
     };
-    this.socket.send(JSON.stringify(event));
+    socket.send(JSON.stringify(event));
   }
 
 //   async function getPosts() {
