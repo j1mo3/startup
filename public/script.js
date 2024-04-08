@@ -388,17 +388,36 @@ async function displayQuote(country, object) {
 async function configureWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    
-    socket.onmessage = async (event) => {
-      //const msg = JSON.parse(await event.data.text());
-      //display post
-      //displayMsg('player', msg.from, `scored ${msg.value.score}`);
-        const msg = JSON.parse(event.data);
-        const response = await fetch(`/api/account/${msg.username}`);
-        account = await response.json();
-        buildPost(msg.discussion, '', account['firstName'], account['lastName'], account['serviceStart'], account['serviceEnd'], msg.date, msg.text);
+    console.log('WebSocket connection configured');
+
+    socket.onopen = () => {
+        console.log('WebSocket connection opened');
     };
-  }
+
+    socket.onmessage = async (event) => {
+        try {
+            console.log('Message received:', event.data);
+            const msg = JSON.parse(event.data);
+            const response = await fetch(`/api/account/${msg.username}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch account data');
+            }
+            const account = await response.json();
+            console.log('It made it here!');
+            buildPost(msg.discussion, '', account['firstName'], account['lastName'], account['serviceStart'], account['serviceEnd'], msg.date, msg.text);
+        } catch (error) {
+            console.error('Error processing WebSocket message:', error);
+        }
+    };
+
+    socket.onclose = (event) => {
+        console.log('WebSocket connection closed:', event);
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+}
   //this posts something to websocket which can then be distributed
 async function broadcastEvent(discussion, username, text) {
     const event = {
@@ -407,7 +426,19 @@ async function broadcastEvent(discussion, username, text) {
       text: text,
       date: new Date()
     };
-    socket.send(JSON.stringify(event));
+    console.log(event);
+    //socket.send(JSON.stringify(event));
+    try {
+        if (socket.readyState === WebSocket.OPEN) {
+               console.log('It worked!');
+               socket.send(JSON.stringify(event));
+           } else {
+               console.error('WebSocket is not open. ReadyState:', socket.readyState);
+           }
+    } catch (error) {
+        console.error('Failed to send message:', error);
+    }
+    
   }
 
 //   async function getPosts() {
@@ -441,3 +472,4 @@ async function broadcastEvent(discussion, username, text) {
 //         const username = localStorage.getItem('username');
 //     }
 // }
+
