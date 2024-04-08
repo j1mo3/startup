@@ -300,31 +300,6 @@ function buildPost(parent, prefix, firstName, lastName, service_start, service_e
 }
 
 async function makePost(discussion, input) {
-    // const post_input = document.querySelector(input);
-    // text = post_input.value.replace(/\r?\n/g, '<br>');
-
-    // username = getUsername();
-    // // response = await fetch(`/api/account/${username}`);
-    // // account = await response.json();
-    // postInformation = {
-    //     discussion: discussion,
-    //     username: username,
-    //     date: new Date().toDateString(),
-    //     text: text
-    // };
-
-    // const response = await fetch('/api/post', {
-    //     method: 'POST',
-    //     headers: {'content-type': 'application/json'},
-    //     body: JSON.stringify(postInformation)
-    // });
-    // //c = await response.json();
-    // console.log(response);
-    
-    // await getPosts(discussion)
-    // //reset text box
-    // post_input.value = '';
-
     const post_input = document.querySelector(input);
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
@@ -346,7 +321,6 @@ async function makePost(discussion, input) {
     //reset text box
     post_input.value = '';
 
-    console.log('EEEE');
     broadcastEvent(discussion, username, text);
 }
 
@@ -384,8 +358,7 @@ async function displayQuote(country, object) {
     }
 
 // Functionality for peer communication using WebSocket
-
-async function configureWebSocket() {
+function configureWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
     console.log('WebSocket connection configured');
@@ -396,15 +369,15 @@ async function configureWebSocket() {
 
     socket.onmessage = async (event) => {
         try {
-            console.log('Message received:', event.data);
-            const msg = JSON.parse(event.data);
-            const response = await fetch(`/api/account/${msg.username}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch account data');
-            }
+            // console.log('Message received:', event.data);
+            // const msg = JSON.parse(event.data);
+            const msg = JSON.parse(await event.data.text());
+            console.log(msg['username']);
+            const response = await fetch(`/api/account/${msg['username']}`);
+
             const account = await response.json();
-            console.log('It made it here!');
-            buildPost(msg.discussion, '', account['firstName'], account['lastName'], account['serviceStart'], account['serviceEnd'], msg.date, msg.text);
+            console.log(msg['discussion']);
+            buildPost(discussion_to_ids[msg['discussion']], '', account['firstName'], account['lastName'], account['startDate'], account['endDate'], msg['date'], msg['text']);
         } catch (error) {
             console.error('Error processing WebSocket message:', error);
         }
@@ -419,7 +392,7 @@ async function configureWebSocket() {
     };
 }
   //this posts something to websocket which can then be distributed
-async function broadcastEvent(discussion, username, text) {
+function broadcastEvent(discussion, username, text) {
     const event = {
       discussion: discussion,
       username: username,
@@ -430,8 +403,8 @@ async function broadcastEvent(discussion, username, text) {
     //socket.send(JSON.stringify(event));
     try {
         if (socket.readyState === WebSocket.OPEN) {
-               console.log('It worked!');
                socket.send(JSON.stringify(event));
+               console.log('Sent!')
            } else {
                console.error('WebSocket is not open. ReadyState:', socket.readyState);
            }
