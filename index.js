@@ -90,23 +90,6 @@ apiRouter.post('/auth/login', async (req, res) => {
   };
 });
 
-// getMe for the currently authenticated user
-// apiRouter.get('/user/me', async (req, res) => {
-//   //try {
-//     authToken = req.cookies['username'];
-//     console.log(authToken);
-//     const user = await collection.findOne({ username: authToken });
-//     if (user) {
-//       //setAuthCookie(res, authToken);
-//       res.send({ username: user.username });
-//       return;
-//     }
-//     res.status(401).send({ msg: 'Unauthorized' });
-//   // } catch {
-//   //   console.log('Something went wrong')
-//   // };
-// });
-
 function setAuthCookie(res, authToken) {
   res.cookie('token', authToken, {
     secure: true,

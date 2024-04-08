@@ -157,9 +157,13 @@ async function getDate() {
 }
 
 async function getCountry() {
-    return 'USA';
-    const response = await fetch(`/api/account?username=${getUsername()}`);
+    return "kksjnti";
+    u = getUsername();
+    const response = await fetch(`/api/account/${u}`);
     account = await response.json();
+    const words = account['missionArea'].split(" ");
+    const first = words[0];
+    return first;
     //return account['username'] ?? localStorage.getItem('username') ?? 'Unknown User';
 }
 
@@ -345,17 +349,34 @@ function updateChat(){
 }
 
 async function displayQuote(country, object) {
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then((response) => response.json())
-        .then((jsonResponse) => {
-          var subregion = jsonResponse[0].subregion;
-          var capital = jsonResponse[0].capital[0];
-          var border_num = (jsonResponse[0].borders).length;
-          var sentence = `${country} borders ${border_num} countries and is located in ${subregion}. It's capital is ${capital}.`;
-          const containerEl = document.querySelector(`#${object}`);
-          containerEl.textContent = sentence;
-        });
-    }
+        fetch(`https://restcountries.com/v3.1/name/${country}`)
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+            try {
+            console.log(jsonResponse);
+            var subregion = jsonResponse[0].subregion;
+            var capital = jsonResponse[0].capital[0];
+            var border_num = (jsonResponse[0].borders).length;
+            var sentence = `${country} borders ${border_num} countries and is located in ${subregion}. It's capital is ${capital}.`;
+            const containerEl = document.querySelector(`#${object}`);
+            containerEl.textContent = sentence;
+            } catch {
+                console.log('Caught');
+            fetch(`https://restcountries.com/v3.1/name/USA`)
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+            console.log(jsonResponse);
+            var subregion = jsonResponse[0].subregion;
+            var capital = jsonResponse[0].capital[0];
+            var border_num = (jsonResponse[0].borders).length;
+            var sentence = `The United States borders ${border_num} countries and is located in ${subregion}. It's capital is ${capital}.`;
+            const containerEl = document.querySelector(`#${object}`);
+            containerEl.textContent = sentence;
+        }); 
+            }
+            });
+        
+}
 
 // Functionality for peer communication using WebSocket
 function configureWebSocket() {
