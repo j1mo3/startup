@@ -76,26 +76,24 @@ For this deliverable I added backend endpoints that receives posts, returns all 
 
 - **Node.js/Express HTTP service** - done!
 - **Static middleware for frontend** - done!
-- **Calls to third party endpoints** - I use the restcountries third party API to get information about the area. This will be displayed on the homescreen as soon as my placeholder for the backend can actually retrive information from the database.
-- **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post. End points are specifically api/account, api/posts, and https://restcountries.com 
-- **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area.
+- **Calls to third party endpoints** - I use the restcountries third party API to get information about the area. This will be displayed on the homescreen as soon as my placeholder for the backend can actually retrive information from the database. If it can't get the country, it defaults to the United States.
+- **Backend service endpoints** - Placeholders getting mission area, all posts, and login information. Endpoint implimented for making a post, creating an account, getting accounts, and getting posts. End points are specifically api/account, api/posts, and https://restcountries.com 
+- **Frontend calls service endpoints** - I did this using the fetch function. The frontend calls the service endpoint when the user selects their mission area. When someone clicks post on the frontend, it calls the API and impliments the post in the database.
 
 ## DB/Login deliverable
-NOTE TO TA: I have all of these implimented and I've gone over them a ton, I think something might be wrong with my express because it's not working. I figured I'd turn it in on time but then I will go to office hours Monday to get this sorted out. I have almost all of it written out, just believe there are a couple of small adjustments I need to make for it to work. Below is what I plan on have working/implimented but it's not working correctly (likely because of express).
 For this deliverable I associate the posts with the logged in user. Users can login to accounts they have created and are stored in the database. They can also create new accounts where all their information is stored for future use. I stored posts in the database as well.
 
 - **MongoDB Atlas database created** - done!
 - **Stores data in MongoDB** - done!
 - **User registration** - Users can create a new account and are required to enter in all information. This is stored in my MangoDB database.
 - **existing user** - Stores information of existing user. User can make posts and view posts. Posts contain user data. 
-- **Use MongoDB to store credentials** - Stores both users and posts. Credentials can be changed under edit profile.
-- **Restricts functionality** - You cannot view or write posts until you have logged in.
+- **Use MongoDB to store credentials** - Stores both users and posts. The database is secure because the passwords are encoded.
+- **Restricts functionality** - You cannot view your information until you have logged in. Functionality limited because posts won't be tied to you.
 
 ## Websocket Deliverable
 For this deliverable I used webSocket to update the posts on the frontend in realtime.
-HEADS UP! I wanted to submit this on time but it's not quite working yet!
 
 - **Backend listens for WebSocket connection** - done!
 - **Frontend makes WebSocket connection** - done!
 - **Data sent over WebSocket connection** - done!
-- WebSocket data displayed - All user votes display in realtime. I'm really proud that this is working. Way cool!
+-When someone makes a post, it uses broadcastEvent using Websocket which then updates the posts in real time for all users.
