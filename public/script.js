@@ -157,7 +157,6 @@ async function getDate() {
 }
 
 async function getCountry() {
-    return "kksjnti";
     u = getUsername();
     const response = await fetch(`/api/account/${u}`);
     account = await response.json();
@@ -308,6 +307,13 @@ async function makePost(discussion, input) {
     text = post_input.value.replace(/\r?\n/g, '<br>');
 
     username = getUsername();
+    if (!username) {
+        console.log('username')
+        return false;
+    } else {
+        console.log(username)
+    }
+
 
     postInformation = {
         discussion: discussion,
