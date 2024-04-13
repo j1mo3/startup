@@ -67,7 +67,7 @@ export function Posts(props) {
             <h6 className="date">{post['date']}</h6>
             <div className="comment-header">
               <div className="mini-profile">
-                <img className="img_profile_pic" src="static/profile-pic.png" style={{ width: "50px" }} />
+                <img className="img_profile_pic" src="profile-pic.png" style={{ width: "50px" }} />
               </div>
               <div className="name-info">
                 <h3 className="name">{users[post['username']]?.firstName + ' ' + users[post['username']]?.lastName}</h3>
@@ -78,7 +78,7 @@ export function Posts(props) {
             <div className="comments-header">
               <h6 className="comment-label">Comments</h6>
               <div className="add-comment">
-                <img className="add-comment-img" src="static/add-comment.svg" style={{ width: "15px" }} />
+                <img className="add-comment-img" src="add-comment.svg" style={{ width: "15px" }} />
               </div>
             </div>
           </div>

@@ -96,7 +96,7 @@ export function Tabs(props) {
             <div className="post-main">
                     <h6 className="today-date" id="create-post-date">{todaysDate}</h6>
                 <div className="comment-header">
-                    <div id="picture" className="mini-profile"><img width="50px" src="static/profile-pic.png" alt="profile picture" /></div>
+                    <div id="picture" className="mini-profile"><img width="50px" src="profile-pic.png" alt="profile picture" /></div>
                     <div className="name-info">
                         <h3 className="name display-name">{name}</h3>
                         <h5 className="service-start">{date}</h5>

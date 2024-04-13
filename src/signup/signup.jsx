@@ -78,7 +78,7 @@ export function SignUp() {
     <div className="mainJSX">
       <div className="seperator"></div>
         <div className="_flexbox">
-            <div id="world-img" className="login-img"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
+            <div id="world-img" className="login-img"><img src="missionary-globe.png" alt="globe-icon"/></div>
             <div className="container">
 
                 <div className="form">

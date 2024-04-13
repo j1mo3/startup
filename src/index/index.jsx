@@ -10,7 +10,7 @@ export function Index() {
                 <h1 id="main-line">Connect with missionaries called to your area!</h1>
                 <h2 id="second-line">Missionary Connect brings together newly called and seasoned missionaries, creating a community where you can share insights, advice, and the joy of serving.</h2>
             </div>
-            <div id="world-img" className="info-box"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
+            <div id="world-img" className="info-box"><img src="missionary-globe.png" alt="globe-icon"/></div>
         </div>
 
         <div className="background">

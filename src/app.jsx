@@ -22,15 +22,15 @@ function App() {
     <BrowserRouter>
         <div className="mainJSX">
             <header>
-                <NavLink to='/'><div id="home-icon" className="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></NavLink>
+                <NavLink to='/'><div id="home-icon" className="picture-box"><img src="missionary-connect-logo.png" alt="profile picture" /></div></NavLink>
                 {/* <a href="index.html"><div id="home-icon" className="picture-box"><img src="static/missionary-connect-logo.png" alt="profile picture" /></div></a> */}
                 <nav>
                     <li><NavLink className='button' to='create'>Sign Up</NavLink></li>
                     <li><NavLink className='normal-link' to='login'>Sign In</NavLink></li>
                 </nav>
-                <div id="social-media-icon" className="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
-                <div id="social-media-icon" className="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
-                <div id="social-media-icon" className="picture-box"><img src="static/social-media-icon.png" alt="social-icon"/></div>
+                <div id="social-media-icon" className="picture-box"><img src="social-media-icon.png" alt="social-icon"/></div>
+                <div id="social-media-icon" className="picture-box"><img src="social-media-icon.png" alt="social-icon"/></div>
+                <div id="social-media-icon" className="picture-box"><img src="social-media-icon.png" alt="social-icon"/></div>
 
             </header>
 

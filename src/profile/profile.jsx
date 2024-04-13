@@ -7,7 +7,7 @@ export function Profile() {
     <div class="mainJSX">
       <div class="seperator"></div>
         <div class="_flexbox">
-            <div id="world-img" class="login-img"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
+            <div id="world-img" class="login-img"><img src="missionary-globe.png" alt="globe-icon"/></div>
             <div class="container">
 
                 <form method="get" action="profile.html">

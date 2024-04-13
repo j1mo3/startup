@@ -50,7 +50,7 @@ export function Login() {
                     </div>
                     <div className="error-statement"><p>{errorMsg}</p></div>
                 </div>
-                <div id="world-img" className="login-img"><img src="static/missionary-globe.png" alt="globe-icon"/></div>
+                <div id="world-img" className="login-img"><img src="missionary-globe.png" alt="globe-icon"/></div>
             </div>
         </main>
       );

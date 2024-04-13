@@ -64,7 +64,7 @@ export function Home() {
                 <h1 className="main-line" id="area">{missionArea}</h1>
                 <h2 className="second-line" id="description">{missionDescription}</h2>
             </div>
-            <a href="about-my-mission.html"><div id="area-img" className="picture-box"><img src="static/mission-area.png" alt="mission-outline" /></div></a>  
+            <a href="about-my-mission.html"><div id="area-img" className="picture-box"><img src="mission-area.png" alt="mission-outline" /></div></a>  
         </div>
 
         <div className="tabs">
