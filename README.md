@@ -97,3 +97,11 @@ For this deliverable I used webSocket to update the posts on the frontend in rea
 - **Frontend makes WebSocket connection** - done!
 - **Data sent over WebSocket connection** - done!
 -When someone makes a post, it uses broadcastEvent using Websocket which then updates the posts in real time for all users.
+
+## React deliverable
+For this deliverable I converted the application over to use React
+
+- [x] **Bundled and transpiled** - done!
+- [x] **Components** - Login, posts, user information are all components.
+- [x] **Router** - Routing between login, signup, home, and index components.
+- [x] **Hooks** - I useState() in the src folders including home, login, and sign up. I use useState() and useEffect().
