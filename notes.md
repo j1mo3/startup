@@ -87,6 +87,93 @@ CNAME: cow.com to map to dog.com (different from redirect)
 
     Would print out A D B
 
+# Kahoot 2
+
+1. Port 80 is reserved for? HTTP
+2. HTTP status codes in the 300 range are for? Content redirects or chaching.
+3. Which is not a standard HTTP header? (content-type, host, cookie) LANGUAGE (is not a standard http header)
+4. Cookies allow: A server to store data on a client.
+5. Why is hashing stored passwords important? It improves security by making the password unreadable
+6. What value does WebSocket add to HTTP? It is peer to peer instead of client to server
+7. What is not a purpose of JSX? (to render html from javascript, to componentize your HTML, to allow for composability of your HTML - all correct), answer-to combine css, html, and javascript
+8. What does the command "NPM install ws" NOT do? (locks the version of the websocket package for your application, adds the websocket source code to node_modules directory, adds a dependency to your package.json file), (answer-adds template code for websockets to your Javascript)
+9. You can use fetch in front-end and back-end code - True
+10. Which of the following is not true about a linux daemon (executes independent of a user, starts when the computer is rebooted, pm2 is an example of a daemonn) (answer- connot fork other processes)
+11. For the request [GET] /fav/george what is logged? Answer- paul george john.
+    app.use(function (req, res, next) {
+    	console.log('paul');
+    	next();
+    });
+    app.put('fav/:person', (req, res, next) => {
+    	console.log('ringo')
+    	next();
+    });
+    app.get('/fav/:person', (req, res, next) => {
+    	console.log(req.params.person);
+    	next();
+    });
+    app.get('/*', (req, res, next) => {
+    	console.log('john');
+    	next();
+    });
+    app.use((_req, res) => res.send());
+12. Which Express middleware will match this fetch request? Answer- app.delete(/fav\/(.*)/, () => {})
+    const r = await fetch('/fav/ringo', {
+	method: "DELETE";
+    });
+13. What document matches this MongoDB query? answer- { name: "Walke", score: -55 }, would not match ({ name: "harry", score: 5 }, { name: "bud", score:3 }, { name: john, score: 337 })
+    { $or: [{name: /J.*/}, {score: {$lt: 3}] }
+14. Given the following code what will console.log print? answer- Client:Server:Hello
+    const {WebSocketServer } = require('ws');
+    const wss = new WebSocketServer({ post: 9900 });
+    wss.on('connection', (ws) => {
+    	ws.on('message', (data) => {
+    		const msg = String.fromCharCode(...data);
+    		ws.send('Server:${msg}');
+    	});
+    });
+
+    //Executed on browser:
+    const socket = new WebSocket('ws://localhost:9900');
+    socket.onmessage = (event) => {
+	console.log(`Client:${event.data}`);
+    };
+    socket.send('Hello');
+15. What will component A initially display? answer- tacofish
+    const B = () => <b>burger</b>;
+    const C = () => <b>fish</b>;
+    const D = () => <b>taco</b>;
+    const A = () => {
+    	const [v, updateV] = React.useState(false);
+    	const [x, updateX] = React.useState(B);
+
+    let o = <C />;
+    if (v) {
+    	o = <B />;
+    }
+
+    React.useEffect(() => updateX(D), [v]);
+
+    return (
+	<p onClick={() => updateV(true)}>{x}{o}</p>
+    )
+16. What component will the URL '/burger' render? B (C is simply the text for a link that will redirect to /burger)
+    <BrowserRouter>
+    	<div className="app">
+	     	<nav>
+	      		<NavLink to="/">A</NavLink>
+	 		<NavLink to="/burger">C</Navlink>
+	      	</nav>
+
+    		<main>
+			<Route path="/" element={<A />} exact />
+			<Route path="/burger" element={<B />} />
+			<Route path="*" element={<C />} exact />
+    		</main>
+    	</div>
+    </BrowserRouter>
+    
+
 # Git
 
 ![Git Icon](essentialsGitIcon.png)
